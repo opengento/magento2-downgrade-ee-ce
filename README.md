@@ -8,4 +8,12 @@ It will works for 2.3 but thanks to declarative schema it should not be an issue
 
 READY TO USE:
 
+- attributes.sql
 - catalogrule.sql
+
+WIP:
+
+- ee.sql
+- cms.sql
+- product.sql
+- category.sql
