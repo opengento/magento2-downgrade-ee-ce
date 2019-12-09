@@ -70,16 +70,12 @@ DROP INDEX IF EXISTS CATALOG_PRODUCT_ENTITY_DATETIME_ENTITY_ID_ATTRIBUTE_ID_STOR
 ALTER TABLE `catalog_product_entity_datetime`
     ADD CONSTRAINT CATALOG_PRODUCT_ENTITY_DATETIME_ENTITY_ID_ATTRIBUTE_ID_STORE_ID UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`);
 ALTER TABLE `catalog_product_entity_datetime`
-    ADD FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
-ALTER TABLE `catalog_product_entity_datetime`
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Decimal
 DROP INDEX IF EXISTS CATALOG_PRODUCT_ENTITY_DECIMAL_ENTITY_ID_ATTRIBUTE_ID_STORE_ID ON `catalog_product_entity_decimal`;
 ALTER TABLE `catalog_product_entity_decimal`
     ADD CONSTRAINT CATALOG_PRODUCT_ENTITY_DECIMAL_ENTITY_ID_ATTRIBUTE_ID_STORE_ID UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`);
-ALTER TABLE `catalog_product_entity_decimal`
-    ADD FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 ALTER TABLE `catalog_product_entity_decimal`
     DROP COLUMN IF EXISTS `row_id`;
 
@@ -88,16 +84,12 @@ DROP INDEX IF EXISTS CATALOG_PRODUCT_ENTITY_INT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID 
 ALTER TABLE `catalog_product_entity_int`
     ADD CONSTRAINT CATALOG_PRODUCT_ENTITY_INT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`);
 ALTER TABLE `catalog_product_entity_int`
-    ADD FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
-ALTER TABLE `catalog_product_entity_int`
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Text
 DROP INDEX IF EXISTS CATALOG_PRODUCT_ENTITY_TEXT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID ON `catalog_product_entity_text`;
 ALTER TABLE `catalog_product_entity_text`
     ADD CONSTRAINT CATALOG_PRODUCT_ENTITY_TEXT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`);
-ALTER TABLE `catalog_product_entity_text`
-    ADD FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 ALTER TABLE `catalog_product_entity_text`
     DROP COLUMN IF EXISTS `row_id`;
 
@@ -106,16 +98,12 @@ DROP INDEX IF EXISTS CATALOG_PRODUCT_ENTITY_VARCHAR_ENTITY_ID_ATTRIBUTE_ID_STORE
 ALTER TABLE `catalog_product_entity_varchar`
     ADD CONSTRAINT CATALOG_PRODUCT_ENTITY_VARCHAR_ENTITY_ID_ATTRIBUTE_ID_STORE_ID UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`);
 ALTER TABLE `catalog_product_entity_varchar`
-    ADD FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
-ALTER TABLE `catalog_product_entity_varchar`
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Gallery
 DROP INDEX IF EXISTS CATALOG_PRODUCT_ENTITY_GALLERY_ENTITY_ID_ATTRIBUTE_ID_STORE_ID ON `catalog_product_entity_gallery`;
 ALTER TABLE `catalog_product_entity_gallery`
     ADD CONSTRAINT CATALOG_PRODUCT_ENTITY_GALLERY_ENTITY_ID_ATTRIBUTE_ID_STORE_ID UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`);
-ALTER TABLE `catalog_product_entity_gallery`
-    ADD FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 ALTER TABLE `catalog_product_entity_gallery`
     DROP COLUMN IF EXISTS `row_id`;
 
@@ -124,8 +112,6 @@ DROP INDEX IF EXISTS CAT_PRD_ENTT_MDA_GLR_VAL_ENTT_ID_VAL_ID_STORE_ID ON `catalo
 ALTER TABLE `catalog_product_entity_media_gallery_value`
     ADD CONSTRAINT CAT_PRD_ENTT_MDA_GLR_VAL_ENTT_ID_VAL_ID_STORE_ID UNIQUE KEY (`entity_id`, `value_id`, `store_id`);
 ALTER TABLE `catalog_product_entity_media_gallery_value`
-    ADD FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
-ALTER TABLE `catalog_product_entity_media_gallery_value`
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Gallery value to entity
@@ -133,16 +119,12 @@ DROP INDEX IF EXISTS CAT_PRD_ENTT_MDA_GLR_VAL_TO_ENTT_VAL_ID_ENTT_ID ON `catalog
 ALTER TABLE `catalog_product_entity_media_gallery_value_to_entity`
     ADD CONSTRAINT CAT_PRD_ENTT_MDA_GLR_VAL_TO_ENTT_VAL_ID_ENTT_ID UNIQUE KEY (`value_id`, `entity_id`);
 ALTER TABLE `catalog_product_entity_media_gallery_value_to_entity`
-    ADD FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
-ALTER TABLE `catalog_product_entity_media_gallery_value_to_entity`
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Tier price
 DROP INDEX IF EXISTS UNQ_E8AB433B9ACB00343ABB312AD2FAB087 ON `catalog_product_entity_tier_price`;
 ALTER TABLE `catalog_product_entity_tier_price`
     ADD CONSTRAINT UNQ_E8AB433B9ACB00343ABB312AD2FAB087 UNIQUE KEY (`entity_id`, `all_groups`, `customer_group_id`, `qty`, `website_id`);
-ALTER TABLE `catalog_product_entity_tier_price`
-    ADD FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 ALTER TABLE `catalog_product_entity_tier_price`
     DROP COLUMN IF EXISTS `row_id`;
 
@@ -158,6 +140,26 @@ ALTER TABLE `catalog_product_entity`
     MODIFY COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0 AUTO_INCREMENT;
 ALTER TABLE `catalog_product_entity`
     ADD PRIMARY KEY (`entity_id`);
+
+-- Foreign keys
+ALTER TABLE `catalog_product_entity_datetime`
+    ADD FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `catalog_product_entity_decimal`
+    ADD FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `catalog_product_entity_int`
+    ADD FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `catalog_product_entity_text`
+    ADD FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `catalog_product_entity_varchar`
+    ADD FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `catalog_product_entity_gallery`
+    ADD FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `catalog_product_entity_media_gallery_value`
+    ADD FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `catalog_product_entity_media_gallery_value_to_entity`
+    ADD FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `catalog_product_entity_tier_price`
+    ADD FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 -- ----------------
 -- Drop sequence --
@@ -203,3 +205,5 @@ ALTER TABLE `catalog_product_bundle_selection`
 
 
 DROP TABLE `sequence_product`;
+
+-- todo add constraint name for the foreign keys

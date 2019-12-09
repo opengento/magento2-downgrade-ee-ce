@@ -10,10 +10,10 @@ READY TO USE:
 
 - attributes.sql
 - catalogrule.sql
+- category.sql
 
 WIP:
 
 - ee.sql
 - cms.sql
 - product.sql
-- category.sql

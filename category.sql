@@ -103,16 +103,16 @@ ALTER TABLE `catalog_category_entity`
     ADD PRIMARY KEY (`entity_id`);
 
 -- Foreign keys
-ALTER TABLE `catalog_category_entity_varchar`
-    ADD CONSTRAINT CAT_CTGR_ENTT_VCHR_ROW_ID_CAT_CTGR_ENTT_ROW_ID FOREIGN KEY (`entity_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
-ALTER TABLE `catalog_category_entity_text`
-    ADD CONSTRAINT CAT_CTGR_ENTT_TEXT_ROW_ID_CAT_CTGR_ENTT_ROW_ID FOREIGN KEY (`entity_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
-ALTER TABLE `catalog_category_entity_int`
-    ADD CONSTRAINT CAT_CTGR_ENTT_INT_ROW_ID_CAT_CTGR_ENTT_ROW_ID FOREIGN KEY (`entity_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
-ALTER TABLE `catalog_category_entity_decimal`
-    ADD CONSTRAINT CAT_CTGR_ENTT_DEC_ROW_ID_CAT_CTGR_ENTT_ROW_ID FOREIGN KEY (`entity_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 ALTER TABLE `catalog_category_entity_datetime`
     ADD CONSTRAINT CAT_CTGR_ENTT_DTIME_ROW_ID_CAT_CTGR_ENTT_ROW_ID FOREIGN KEY (`entity_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `catalog_category_entity_decimal`
+    ADD CONSTRAINT CAT_CTGR_ENTT_DEC_ROW_ID_CAT_CTGR_ENTT_ROW_ID FOREIGN KEY (`entity_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `catalog_category_entity_int`
+    ADD CONSTRAINT CAT_CTGR_ENTT_INT_ROW_ID_CAT_CTGR_ENTT_ROW_ID FOREIGN KEY (`entity_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `catalog_category_entity_text`
+    ADD CONSTRAINT CAT_CTGR_ENTT_TEXT_ROW_ID_CAT_CTGR_ENTT_ROW_ID FOREIGN KEY (`entity_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `catalog_category_entity_varchar`
+    ADD CONSTRAINT CAT_CTGR_ENTT_VCHR_ROW_ID_CAT_CTGR_ENTT_ROW_ID FOREIGN KEY (`entity_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 -- ----------------
 -- Drop sequence --
