@@ -46,61 +46,73 @@ WHERE 1;
 -- ------------------------------------------------------------------
 
 -- Datetime
+ALTER TABLE `catalog_category_entity_datetime`
+    DROP FOREIGN KEY IF EXISTS CAT_CTGR_ENTT_DTIME_ROW_ID_CAT_CTGR_ENTT_ROW_ID;
 DROP INDEX CATALOG_CATEGORY_ENTITY_DATETIME_ENTITY_ID_ATTRIBUTE_ID_STORE_ID ON `catalog_category_entity_datetime`;
 ALTER TABLE `catalog_category_entity_datetime`
     ADD CONSTRAINT CATALOG_CATEGORY_ENTITY_DATETIME_ENTITY_ID_ATTRIBUTE_ID_STORE_ID UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`);
 ALTER TABLE `catalog_category_entity_datetime`
-    DROP COLUMN `row_id`;
-ALTER TABLE `catalog_category_entity_datetime`
-    ADD FOREIGN KEY (`entity_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+    DROP COLUMN IF EXISTS `row_id`;
 
 -- Decimal
+ALTER TABLE `catalog_category_entity_decimal`
+    DROP FOREIGN KEY IF EXISTS CAT_CTGR_ENTT_DEC_ROW_ID_CAT_CTGR_ENTT_ROW_ID;
 DROP INDEX CATALOG_CATEGORY_ENTITY_DECIMAL_ENTITY_ID_ATTRIBUTE_ID_STORE_ID ON `catalog_category_entity_decimal`;
 ALTER TABLE `catalog_category_entity_decimal`
     ADD CONSTRAINT CATALOG_CATEGORY_ENTITY_DECIMAL_ENTITY_ID_ATTRIBUTE_ID_STORE_ID UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`);
 ALTER TABLE `catalog_category_entity_decimal`
-    DROP COLUMN `row_id`;
-ALTER TABLE `catalog_category_entity_decimal`
-    ADD FOREIGN KEY (`entity_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+    DROP COLUMN IF EXISTS `row_id`;
 
 -- Int
+ALTER TABLE `catalog_category_entity_int`
+    DROP FOREIGN KEY IF EXISTS CAT_CTGR_ENTT_INT_ROW_ID_CAT_CTGR_ENTT_ROW_ID;
 DROP INDEX CATALOG_CATEGORY_ENTITY_INT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID ON `catalog_category_entity_int`;
 ALTER TABLE `catalog_category_entity_int`
     ADD CONSTRAINT CATALOG_CATEGORY_ENTITY_INT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`);
 ALTER TABLE `catalog_category_entity_int`
-    DROP COLUMN `row_id`;
-ALTER TABLE `catalog_category_entity_int`
-    ADD FOREIGN KEY (`entity_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+    DROP COLUMN IF EXISTS `row_id`;
 
 -- Text
+ALTER TABLE `catalog_category_entity_text`
+    DROP FOREIGN KEY IF EXISTS CAT_CTGR_ENTT_TEXT_ROW_ID_CAT_CTGR_ENTT_ROW_ID;
 DROP INDEX CATALOG_CATEGORY_ENTITY_TEXT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID ON `catalog_category_entity_text`;
 ALTER TABLE `catalog_category_entity_text`
     ADD CONSTRAINT CATALOG_CATEGORY_ENTITY_TEXT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`);
 ALTER TABLE `catalog_category_entity_text`
-    DROP COLUMN `row_id`;
-ALTER TABLE `catalog_category_entity_text`
-    ADD FOREIGN KEY (`entity_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+    DROP COLUMN IF EXISTS `row_id`;
 
 -- Varchar
+ALTER TABLE `catalog_category_entity_varchar`
+    DROP FOREIGN KEY IF EXISTS CAT_CTGR_ENTT_VCHR_ROW_ID_CAT_CTGR_ENTT_ROW_ID;
 DROP INDEX CATALOG_CATEGORY_ENTITY_VARCHAR_ENTITY_ID_ATTRIBUTE_ID_STORE_ID ON `catalog_category_entity_varchar`;
 ALTER TABLE `catalog_category_entity_varchar`
     ADD CONSTRAINT CATALOG_CATEGORY_ENTITY_VARCHAR_ENTITY_ID_ATTRIBUTE_ID_STORE_ID UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`);
 ALTER TABLE `catalog_category_entity_varchar`
-    DROP COLUMN `row_id`;
-ALTER TABLE `catalog_category_entity_varchar`
-    ADD FOREIGN KEY (`entity_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+    DROP COLUMN IF EXISTS `row_id`;
 
 -- Entity
 ALTER TABLE `catalog_category_entity`
-    DROP FOREIGN KEY CAT_CTGR_ENTT_ENTT_ID_SEQUENCE_CAT_CTGR_SEQUENCE_VAL;
+    DROP FOREIGN KEY IF EXISTS CAT_CTGR_ENTT_ENTT_ID_SEQUENCE_CAT_CTGR_SEQUENCE_VAL;
 ALTER TABLE `catalog_category_entity`
-    DROP COLUMN `row_id`,
-    DROP COLUMN `created_in`,
-    DROP COLUMN `updated_in`;
+    DROP COLUMN IF EXISTS `row_id`,
+    DROP COLUMN IF EXISTS `created_in`,
+    DROP COLUMN IF EXISTS `updated_in`;
 ALTER TABLE `catalog_category_entity`
-    MODIFY COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0 AUTO_INCREMENT;
+    MODIFY COLUMN `entity_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 ALTER TABLE `catalog_category_entity`
     ADD PRIMARY KEY (`entity_id`);
+
+-- Foreign keys
+ALTER TABLE `catalog_category_entity_varchar`
+    ADD CONSTRAINT CAT_CTGR_ENTT_VCHR_ROW_ID_CAT_CTGR_ENTT_ROW_ID FOREIGN KEY (`entity_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `catalog_category_entity_text`
+    ADD CONSTRAINT CAT_CTGR_ENTT_TEXT_ROW_ID_CAT_CTGR_ENTT_ROW_ID FOREIGN KEY (`entity_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `catalog_category_entity_int`
+    ADD CONSTRAINT CAT_CTGR_ENTT_INT_ROW_ID_CAT_CTGR_ENTT_ROW_ID FOREIGN KEY (`entity_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `catalog_category_entity_decimal`
+    ADD CONSTRAINT CAT_CTGR_ENTT_DEC_ROW_ID_CAT_CTGR_ENTT_ROW_ID FOREIGN KEY (`entity_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `catalog_category_entity_datetime`
+    ADD CONSTRAINT CAT_CTGR_ENTT_DTIME_ROW_ID_CAT_CTGR_ENTT_ROW_ID FOREIGN KEY (`entity_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 -- ----------------
 -- Drop sequence --
@@ -109,11 +121,11 @@ ALTER TABLE `catalog_category_entity`
 ALTER TABLE `catalog_category_product`
     DROP FOREIGN KEY CAT_CTGR_PRD_CTGR_ID_SEQUENCE_CAT_CTGR_SEQUENCE_VAL;
 ALTER TABLE `catalog_category_product`
-    ADD FOREIGN KEY (`category_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+    ADD CONSTRAINT CAT_CTGR_PRD_CTGR_ID_CAT_CTGR_ENTT_ENTT_ID FOREIGN KEY (`category_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 ALTER TABLE `catalog_url_rewrite_product_category`
     DROP FOREIGN KEY CAT_URL_REWRITE_PRD_CTGR_CTGR_ID_SEQUENCE_CAT_CTGR_SEQUENCE_VAL;
 ALTER TABLE `catalog_url_rewrite_product_category`
-    ADD FOREIGN KEY (`category_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+    ADD CONSTRAINT CAT_URL_REWRITE_PRD_CTGR_CTGR_ID_CAT_CTGR_ENTT_ENTT_ID FOREIGN KEY (`category_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
-DROP TABLE `sequence_catalog_category`;
+DROP TABLE IF EXISTS `magento_catalogevent_event_image`, `magento_catalogevent_event`, `sequence_catalog_category`;
