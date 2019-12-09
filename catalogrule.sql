@@ -67,5 +67,4 @@ ALTER TABLE `catalogrule_website`
     ADD CONSTRAINT CATALOGRULE_WEBSITE_RULE_ID_CATALOGRULE_RULE_ID FOREIGN KEY (`rule_id`) REFERENCES `catalogrule` (`rule_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 -- Drop tables
-DROP TABLE `magento_banner_catalogrule`;
-DROP TABLE `sequence_catalogrule`;
+DROP TABLE `magento_banner_catalogrule`, `sequence_catalogrule`;
