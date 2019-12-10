@@ -1,19 +1,46 @@
-Migrating EE to CE resolve in indexer issue if you forget to remove additon done by the statging modules on the database.
+# Migration Tool for Magento Commerce to Magento OpenSource
 
-Use ee-2-ce.sql to fix the catalog tables.
+> Also known as Magento Enterprise (EE) to Magento Community (CE).
 
-/!\ This fix only apply for Magento Version < 2.3 /!\
+This migrating tool allows to downgrade the database schema without altering the data. The major difference between the
+two editions are the `staging` definitions that enable draft and scheduled publication. Beside that the scripts provided
+by the tool will remove some specific tables and attributes of the Magento Commerce Edition.
 
-It will works for 2.3 but thanks to declarative schema it should not be an issue anymore.
+Be aware since Magento `>=2.3` the declarative schema has been introduces. It means that this tool is not mandatory to
+migrate from EE to CE if you have a ***fresh install of a Magento `>=2.3`***.
+However the usage of this tool is advised.
 
-READY TO USE:
+**NOTICE**
+- This tool has not been tested with a split database configuration.
 
-- attributes.sql
-- catalogrule.sql
-- category.sql
+## How to use
 
-WIP:
+`mysql -u <user> <database> < <script.sql>`
 
-- ee.sql
-- cms.sql
-- product.sql
+> Where :
+> - `user` is your mysql user.
+> - `password` is your mysql user credentials
+> - `database` is your magento database
+> - `script.sql` is the script you want to run from the following list:
+
+**READY TO USE:**
+
+- [Attributes](./scripts/attributes.sql)
+- [CatalogRule](./scripts/catalogrule.sql)
+- [Category](./scripts/category.sql)
+
+**WIP:**
+
+- [EE Tables](./scripts/ee.sql)
+- [CMS](./scripts/cms.sql)
+- [Product](./scripts/product.sql)
+
+## Authors
+
+- **Thomas Klein** - *Maintainer* - [![GitHub followers](https://img.shields.io/github/followers/thomas-kl1.svg?style=social)](https://github.com/thomas-kl1)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) details.
+
+***That's all folks!***

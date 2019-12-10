@@ -48,7 +48,7 @@ WHERE 1;
 -- Datetime
 ALTER TABLE `catalog_category_entity_datetime`
     DROP FOREIGN KEY IF EXISTS CAT_CTGR_ENTT_DTIME_ROW_ID_CAT_CTGR_ENTT_ROW_ID;
-DROP INDEX CATALOG_CATEGORY_ENTITY_DATETIME_ENTITY_ID_ATTRIBUTE_ID_STORE_ID ON `catalog_category_entity_datetime`;
+DROP INDEX IF EXISTS CATALOG_CATEGORY_ENTITY_DATETIME_ENTITY_ID_ATTRIBUTE_ID_STORE_ID ON `catalog_category_entity_datetime`;
 ALTER TABLE `catalog_category_entity_datetime`
     ADD CONSTRAINT CATALOG_CATEGORY_ENTITY_DATETIME_ENTITY_ID_ATTRIBUTE_ID_STORE_ID UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`);
 ALTER TABLE `catalog_category_entity_datetime`
@@ -57,7 +57,7 @@ ALTER TABLE `catalog_category_entity_datetime`
 -- Decimal
 ALTER TABLE `catalog_category_entity_decimal`
     DROP FOREIGN KEY IF EXISTS CAT_CTGR_ENTT_DEC_ROW_ID_CAT_CTGR_ENTT_ROW_ID;
-DROP INDEX CATALOG_CATEGORY_ENTITY_DECIMAL_ENTITY_ID_ATTRIBUTE_ID_STORE_ID ON `catalog_category_entity_decimal`;
+DROP INDEX IF EXISTS CATALOG_CATEGORY_ENTITY_DECIMAL_ENTITY_ID_ATTRIBUTE_ID_STORE_ID ON `catalog_category_entity_decimal`;
 ALTER TABLE `catalog_category_entity_decimal`
     ADD CONSTRAINT CATALOG_CATEGORY_ENTITY_DECIMAL_ENTITY_ID_ATTRIBUTE_ID_STORE_ID UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`);
 ALTER TABLE `catalog_category_entity_decimal`
@@ -66,7 +66,7 @@ ALTER TABLE `catalog_category_entity_decimal`
 -- Int
 ALTER TABLE `catalog_category_entity_int`
     DROP FOREIGN KEY IF EXISTS CAT_CTGR_ENTT_INT_ROW_ID_CAT_CTGR_ENTT_ROW_ID;
-DROP INDEX CATALOG_CATEGORY_ENTITY_INT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID ON `catalog_category_entity_int`;
+DROP INDEX IF EXISTS CATALOG_CATEGORY_ENTITY_INT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID ON `catalog_category_entity_int`;
 ALTER TABLE `catalog_category_entity_int`
     ADD CONSTRAINT CATALOG_CATEGORY_ENTITY_INT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`);
 ALTER TABLE `catalog_category_entity_int`
@@ -75,7 +75,7 @@ ALTER TABLE `catalog_category_entity_int`
 -- Text
 ALTER TABLE `catalog_category_entity_text`
     DROP FOREIGN KEY IF EXISTS CAT_CTGR_ENTT_TEXT_ROW_ID_CAT_CTGR_ENTT_ROW_ID;
-DROP INDEX CATALOG_CATEGORY_ENTITY_TEXT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID ON `catalog_category_entity_text`;
+DROP INDEX IF EXISTS CATALOG_CATEGORY_ENTITY_TEXT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID ON `catalog_category_entity_text`;
 ALTER TABLE `catalog_category_entity_text`
     ADD CONSTRAINT CATALOG_CATEGORY_ENTITY_TEXT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`);
 ALTER TABLE `catalog_category_entity_text`
@@ -84,7 +84,7 @@ ALTER TABLE `catalog_category_entity_text`
 -- Varchar
 ALTER TABLE `catalog_category_entity_varchar`
     DROP FOREIGN KEY IF EXISTS CAT_CTGR_ENTT_VCHR_ROW_ID_CAT_CTGR_ENTT_ROW_ID;
-DROP INDEX CATALOG_CATEGORY_ENTITY_VARCHAR_ENTITY_ID_ATTRIBUTE_ID_STORE_ID ON `catalog_category_entity_varchar`;
+DROP INDEX IF EXISTS CATALOG_CATEGORY_ENTITY_VARCHAR_ENTITY_ID_ATTRIBUTE_ID_STORE_ID ON `catalog_category_entity_varchar`;
 ALTER TABLE `catalog_category_entity_varchar`
     ADD CONSTRAINT CATALOG_CATEGORY_ENTITY_VARCHAR_ENTITY_ID_ATTRIBUTE_ID_STORE_ID UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`);
 ALTER TABLE `catalog_category_entity_varchar`
