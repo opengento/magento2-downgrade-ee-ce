@@ -173,7 +173,7 @@ ALTER TABLE `catalog_product_entity_datetime`
     DROP FOREIGN KEY IF EXISTS `CAT_PRD_ENTT_DTIME_ROW_ID_CAT_PRD_ENTT_ROW_ID`;
 DROP INDEX IF EXISTS `CATALOG_PRODUCT_ENTITY_DATETIME_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` ON `catalog_product_entity_datetime`;
 ALTER TABLE `catalog_product_entity_datetime`
-    ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_DATETIME_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`),
+    ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_DATETIME_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`,`attribute_id`,`store_id`),
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Decimal
@@ -181,7 +181,7 @@ ALTER TABLE `catalog_product_entity_decimal`
     DROP FOREIGN KEY IF EXISTS `CAT_PRD_ENTT_DEC_ROW_ID_CAT_PRD_ENTT_ROW_ID`;
 DROP INDEX IF EXISTS `CATALOG_PRODUCT_ENTITY_DECIMAL_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` ON `catalog_product_entity_decimal`;
 ALTER TABLE `catalog_product_entity_decimal`
-    ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_DECIMAL_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`),
+    ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_DECIMAL_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`,`attribute_id`,`store_id`),
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Int
@@ -189,7 +189,7 @@ ALTER TABLE `catalog_product_entity_int`
     DROP FOREIGN KEY IF EXISTS `CATALOG_PRODUCT_ENTITY_INT_ROW_ID_CATALOG_PRODUCT_ENTITY_ROW_ID`;
 DROP INDEX IF EXISTS `CATALOG_PRODUCT_ENTITY_INT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` ON `catalog_product_entity_int`;
 ALTER TABLE `catalog_product_entity_int`
-    ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_INT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`),
+    ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_INT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`,`attribute_id`,`store_id`),
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Text
@@ -197,7 +197,7 @@ ALTER TABLE `catalog_product_entity_text`
     DROP FOREIGN KEY IF EXISTS `CATALOG_PRODUCT_ENTITY_TEXT_ROW_ID_CATALOG_PRODUCT_ENTITY_ROW_ID`;
 DROP INDEX IF EXISTS `CATALOG_PRODUCT_ENTITY_TEXT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` ON `catalog_product_entity_text`;
 ALTER TABLE `catalog_product_entity_text`
-    ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_TEXT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`),
+    ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_TEXT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`,`attribute_id`,`store_id`),
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Varchar
@@ -205,7 +205,7 @@ ALTER TABLE `catalog_product_entity_varchar`
     DROP FOREIGN KEY IF EXISTS `CAT_PRD_ENTT_VCHR_ROW_ID_CAT_PRD_ENTT_ROW_ID`;
 DROP INDEX IF EXISTS `CATALOG_PRODUCT_ENTITY_VARCHAR_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` ON `catalog_product_entity_varchar`;
 ALTER TABLE `catalog_product_entity_varchar`
-    ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_VARCHAR_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`),
+    ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_VARCHAR_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`,`attribute_id`,`store_id`),
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Gallery
@@ -213,7 +213,7 @@ ALTER TABLE `catalog_product_entity_gallery`
     DROP FOREIGN KEY IF EXISTS `CAT_PRD_ENTT_GLR_ROW_ID_CAT_PRD_ENTT_ROW_ID`;
 DROP INDEX IF EXISTS `CATALOG_PRODUCT_ENTITY_GALLERY_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` ON `catalog_product_entity_gallery`;
 ALTER TABLE `catalog_product_entity_gallery`
-    ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_GALLERY_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`),
+    ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_GALLERY_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`,`attribute_id`,`store_id`),
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Gallery value
@@ -221,7 +221,7 @@ ALTER TABLE `catalog_product_entity_media_gallery_value`
     DROP FOREIGN KEY IF EXISTS `CAT_PRD_ENTT_MDA_GLR_VAL_ROW_ID_CAT_PRD_ENTT_ROW_ID`;
 DROP INDEX IF EXISTS `CAT_PRD_ENTT_MDA_GLR_VAL_ENTT_ID_VAL_ID_STORE_ID` ON `catalog_product_entity_media_gallery_value`;
 ALTER TABLE `catalog_product_entity_media_gallery_value`
-    ADD CONSTRAINT `CAT_PRD_ENTT_MDA_GLR_VAL_ENTT_ID_VAL_ID_STORE_ID` UNIQUE KEY (`entity_id`, `value_id`, `store_id`),
+    ADD CONSTRAINT `CAT_PRD_ENTT_MDA_GLR_VAL_ENTT_ID_VAL_ID_STORE_ID` UNIQUE KEY (`entity_id`,`value_id`,`store_id`),
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Gallery value to entity
@@ -229,7 +229,7 @@ ALTER TABLE `catalog_product_entity_media_gallery_value_to_entity`
     DROP FOREIGN KEY IF EXISTS `CAT_PRD_ENTT_MDA_GLR_VAL_TO_ENTT_ROW_ID_CAT_PRD_ENTT_ROW_ID`;
 DROP INDEX IF EXISTS `CAT_PRD_ENTT_MDA_GLR_VAL_TO_ENTT_VAL_ID_ENTT_ID` ON `catalog_product_entity_media_gallery_value_to_entity`;
 ALTER TABLE `catalog_product_entity_media_gallery_value_to_entity`
-    ADD CONSTRAINT `CAT_PRD_ENTT_MDA_GLR_VAL_TO_ENTT_VAL_ID_ENTT_ID` UNIQUE KEY (`value_id`, `entity_id`),
+    ADD CONSTRAINT `CAT_PRD_ENTT_MDA_GLR_VAL_TO_ENTT_VAL_ID_ENTT_ID` UNIQUE KEY (`value_id`,`entity_id`),
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Tier price
@@ -237,7 +237,7 @@ ALTER TABLE `catalog_product_entity_tier_price`
     DROP FOREIGN KEY IF EXISTS `CAT_PRD_ENTT_TIER_PRICE_ROW_ID_CAT_PRD_ENTT_ROW_ID`;
 DROP INDEX IF EXISTS `UNQ_E8AB433B9ACB00343ABB312AD2FAB087` ON `catalog_product_entity_tier_price`;
 ALTER TABLE `catalog_product_entity_tier_price`
-    ADD CONSTRAINT `UNQ_E8AB433B9ACB00343ABB312AD2FAB087` UNIQUE KEY (`entity_id`, `all_groups`, `customer_group_id`, `qty`, `website_id`),
+    ADD CONSTRAINT `UNQ_E8AB433B9ACB00343ABB312AD2FAB087` UNIQUE KEY (`entity_id`,`all_groups`,`customer_group_id`,`qty`,`website_id`),
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Entity

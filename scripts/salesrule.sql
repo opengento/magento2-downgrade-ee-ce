@@ -46,7 +46,7 @@ ALTER TABLE `salesrule_customer_group`
 ALTER TABLE `salesrule_website`
     DROP FOREIGN KEY IF EXISTS `SALESRULE_WEBSITE_ROW_ID_SALESRULE_ROW_ID`,
     DROP PRIMARY KEY,
-    ADD PRIMARY KEY (`rule_id`,`customer_group_id`),
+    ADD PRIMARY KEY (`rule_id`,`website_id`),
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Product Attribute

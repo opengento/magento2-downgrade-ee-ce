@@ -34,14 +34,14 @@ WHERE 1;
 ALTER TABLE `catalogrule_customer_group`
     DROP FOREIGN KEY IF EXISTS `CATALOGRULE_CUSTOMER_GROUP_ROW_ID_CATALOGRULE_ROW_ID`,
     DROP PRIMARY KEY,
-    ADD PRIMARY KEY (`rule_id`, `customer_group_id`),
+    ADD PRIMARY KEY (`rule_id`,`customer_group_id`),
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Website
 ALTER TABLE `catalogrule_website`
     DROP FOREIGN KEY IF EXISTS `CATALOGRULE_WEBSITE_ROW_ID_CATALOGRULE_ROW_ID`,
     DROP PRIMARY KEY,
-    ADD PRIMARY KEY (`rule_id`, `website_id`),
+    ADD PRIMARY KEY (`rule_id`,`website_id`),
     DROP COLUMN `row_id`;
 
 -- Catalogrule
@@ -51,7 +51,7 @@ ALTER TABLE `catalogrule`
     DROP COLUMN IF EXISTS `created_in`,
     DROP COLUMN IF EXISTS `updated_in`,
     ADD PRIMARY KEY (`rule_id`),
-    MODIFY COLUMN `rule_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Rule ID';
+    MODIFY COLUMN `rule_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Entity ID';
 
 -- Foreign keys
 ALTER TABLE `catalogrule_customer_group`
@@ -63,4 +63,4 @@ ALTER TABLE `catalogrule_website`
 -- Drop sequence --
 -- ----------------
 
-DROP TABLE IF EXISTS `magento_banner_catalogrule`, `sequence_catalogrule`;
+DROP TABLE IF EXISTS `magento_banner_catalogrule`,`sequence_catalogrule`;
