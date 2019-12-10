@@ -35,6 +35,13 @@ However the usage of this tool is advised.
 - [CMS](./scripts/cms.sql)
 - [Product](./scripts/product.sql)
 
+**NOTICE**
+- Why `SET FOREIGN_KEY_CHECKS = 0;` is not used? Because it's harmful and we want to be sure to don't lost any data.
+
+## Similar package
+
+- [https://github.com/hoangnm89/m2-query-ee-to-ce](https://github.com/hoangnm89/m2-query-ee-to-ce)
+
 ## Authors
 
 - **Thomas Klein** - *Maintainer* - [![GitHub followers](https://img.shields.io/github/followers/thomas-kl1.svg?style=social)](https://github.com/thomas-kl1)

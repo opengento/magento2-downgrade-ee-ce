@@ -1,23 +1,23 @@
 -- Enable `entity_id` column for catalog product entity
 
 ALTER TABLE `catalog_product_entity_datetime`
-    ADD COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0;
+    ADD COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'Entity ID';
 ALTER TABLE `catalog_product_entity_decimal`
-    ADD COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0;
+    ADD COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'Entity ID';
 ALTER TABLE `catalog_product_entity_gallery`
-    ADD COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0;
+    ADD COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'Entity ID';
 ALTER TABLE `catalog_product_entity_int`
-    ADD COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0;
+    ADD COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'Entity ID';
 ALTER TABLE `catalog_product_entity_media_gallery_value`
-    ADD COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0;
+    ADD COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'Entity ID';
 ALTER TABLE `catalog_product_entity_media_gallery_value_to_entity`
-    ADD COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0;
+    ADD COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'Entity ID';
 ALTER TABLE `catalog_product_entity_text`
-    ADD COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0;
+    ADD COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'Entity ID';
 ALTER TABLE `catalog_product_entity_tier_price`
-    ADD COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0;
+    ADD COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'Entity ID';
 ALTER TABLE `catalog_product_entity_varchar`
-    ADD COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0;
+    ADD COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'Entity ID';
 
 -- Clean duplicate for catalog product entity
 
@@ -66,79 +66,68 @@ WHERE 1;
 -- ------------------------------------------------------------------
 
 -- Datetime
-DROP INDEX IF EXISTS CATALOG_PRODUCT_ENTITY_DATETIME_ENTITY_ID_ATTRIBUTE_ID_STORE_ID ON `catalog_product_entity_datetime`;
+DROP INDEX IF EXISTS `CATALOG_PRODUCT_ENTITY_DATETIME_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` ON `catalog_product_entity_datetime`;
 ALTER TABLE `catalog_product_entity_datetime`
-    ADD CONSTRAINT CATALOG_PRODUCT_ENTITY_DATETIME_ENTITY_ID_ATTRIBUTE_ID_STORE_ID UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`);
-ALTER TABLE `catalog_product_entity_datetime`
+    ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_DATETIME_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`),
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Decimal
-DROP INDEX IF EXISTS CATALOG_PRODUCT_ENTITY_DECIMAL_ENTITY_ID_ATTRIBUTE_ID_STORE_ID ON `catalog_product_entity_decimal`;
+DROP INDEX IF EXISTS `CATALOG_PRODUCT_ENTITY_DECIMAL_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` ON `catalog_product_entity_decimal`;
 ALTER TABLE `catalog_product_entity_decimal`
-    ADD CONSTRAINT CATALOG_PRODUCT_ENTITY_DECIMAL_ENTITY_ID_ATTRIBUTE_ID_STORE_ID UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`);
-ALTER TABLE `catalog_product_entity_decimal`
+    ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_DECIMAL_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`),
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Int
-DROP INDEX IF EXISTS CATALOG_PRODUCT_ENTITY_INT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID ON `catalog_product_entity_int`;
+DROP INDEX IF EXISTS `CATALOG_PRODUCT_ENTITY_INT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` ON `catalog_product_entity_int`;
 ALTER TABLE `catalog_product_entity_int`
-    ADD CONSTRAINT CATALOG_PRODUCT_ENTITY_INT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`);
-ALTER TABLE `catalog_product_entity_int`
+    ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_INT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`),
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Text
-DROP INDEX IF EXISTS CATALOG_PRODUCT_ENTITY_TEXT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID ON `catalog_product_entity_text`;
+DROP INDEX IF EXISTS `CATALOG_PRODUCT_ENTITY_TEXT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` ON `catalog_product_entity_text`;
 ALTER TABLE `catalog_product_entity_text`
-    ADD CONSTRAINT CATALOG_PRODUCT_ENTITY_TEXT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`);
-ALTER TABLE `catalog_product_entity_text`
+    ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_TEXT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`),
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Varchar
-DROP INDEX IF EXISTS CATALOG_PRODUCT_ENTITY_VARCHAR_ENTITY_ID_ATTRIBUTE_ID_STORE_ID ON `catalog_product_entity_varchar`;
+DROP INDEX IF EXISTS `CATALOG_PRODUCT_ENTITY_VARCHAR_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` ON `catalog_product_entity_varchar`;
 ALTER TABLE `catalog_product_entity_varchar`
-    ADD CONSTRAINT CATALOG_PRODUCT_ENTITY_VARCHAR_ENTITY_ID_ATTRIBUTE_ID_STORE_ID UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`);
-ALTER TABLE `catalog_product_entity_varchar`
+    ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_VARCHAR_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`),
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Gallery
-DROP INDEX IF EXISTS CATALOG_PRODUCT_ENTITY_GALLERY_ENTITY_ID_ATTRIBUTE_ID_STORE_ID ON `catalog_product_entity_gallery`;
+DROP INDEX IF EXISTS `CATALOG_PRODUCT_ENTITY_GALLERY_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` ON `catalog_product_entity_gallery`;
 ALTER TABLE `catalog_product_entity_gallery`
-    ADD CONSTRAINT CATALOG_PRODUCT_ENTITY_GALLERY_ENTITY_ID_ATTRIBUTE_ID_STORE_ID UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`);
-ALTER TABLE `catalog_product_entity_gallery`
+    ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_GALLERY_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`, `attribute_id`, `store_id`),
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Gallery value
-DROP INDEX IF EXISTS CAT_PRD_ENTT_MDA_GLR_VAL_ENTT_ID_VAL_ID_STORE_ID ON `catalog_product_entity_media_gallery_value`;
+DROP INDEX IF EXISTS `CAT_PRD_ENTT_MDA_GLR_VAL_ENTT_ID_VAL_ID_STORE_ID` ON `catalog_product_entity_media_gallery_value`;
 ALTER TABLE `catalog_product_entity_media_gallery_value`
-    ADD CONSTRAINT CAT_PRD_ENTT_MDA_GLR_VAL_ENTT_ID_VAL_ID_STORE_ID UNIQUE KEY (`entity_id`, `value_id`, `store_id`);
-ALTER TABLE `catalog_product_entity_media_gallery_value`
+    ADD CONSTRAINT `CAT_PRD_ENTT_MDA_GLR_VAL_ENTT_ID_VAL_ID_STORE_ID` UNIQUE KEY (`entity_id`, `value_id`, `store_id`),
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Gallery value to entity
-DROP INDEX IF EXISTS CAT_PRD_ENTT_MDA_GLR_VAL_TO_ENTT_VAL_ID_ENTT_ID ON `catalog_product_entity_media_gallery_value_to_entity`;
+DROP INDEX IF EXISTS `CAT_PRD_ENTT_MDA_GLR_VAL_TO_ENTT_VAL_ID_ENTT_ID` ON `catalog_product_entity_media_gallery_value_to_entity`;
 ALTER TABLE `catalog_product_entity_media_gallery_value_to_entity`
-    ADD CONSTRAINT CAT_PRD_ENTT_MDA_GLR_VAL_TO_ENTT_VAL_ID_ENTT_ID UNIQUE KEY (`value_id`, `entity_id`);
-ALTER TABLE `catalog_product_entity_media_gallery_value_to_entity`
+    ADD CONSTRAINT `CAT_PRD_ENTT_MDA_GLR_VAL_TO_ENTT_VAL_ID_ENTT_ID` UNIQUE KEY (`value_id`, `entity_id`),
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Tier price
-DROP INDEX IF EXISTS UNQ_E8AB433B9ACB00343ABB312AD2FAB087 ON `catalog_product_entity_tier_price`;
+DROP INDEX IF EXISTS `UNQ_E8AB433B9ACB00343ABB312AD2FAB087` ON `catalog_product_entity_tier_price`;
 ALTER TABLE `catalog_product_entity_tier_price`
-    ADD CONSTRAINT UNQ_E8AB433B9ACB00343ABB312AD2FAB087 UNIQUE KEY (`entity_id`, `all_groups`, `customer_group_id`, `qty`, `website_id`);
-ALTER TABLE `catalog_product_entity_tier_price`
+    ADD CONSTRAINT `UNQ_E8AB433B9ACB00343ABB312AD2FAB087` UNIQUE KEY (`entity_id`, `all_groups`, `customer_group_id`, `qty`, `website_id`),
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Entity
 ALTER TABLE `catalog_product_entity`
-    DROP FOREIGN KEY IF EXISTS CATALOG_PRODUCT_ENTITY_ENTITY_ID_SEQUENCE_PRODUCT_SEQUENCE_VALUE;
-DROP INDEX IF EXISTS CATALOG_PRODUCT_ENTITY_ENTITY_ID_CREATED_IN_UPDATED_IN ON `catalog_product_entity`;
+    DROP FOREIGN KEY IF EXISTS `CATALOG_PRODUCT_ENTITY_ENTITY_ID_SEQUENCE_PRODUCT_SEQUENCE_VALUE`;
+DROP INDEX IF EXISTS `CATALOG_PRODUCT_ENTITY_ENTITY_ID_CREATED_IN_UPDATED_IN` ON `catalog_product_entity`;
 ALTER TABLE `catalog_product_entity`
     DROP COLUMN IF EXISTS `row_id`,
     DROP COLUMN IF EXISTS `created_in`,
-    DROP COLUMN IF EXISTS `updated_in`;
-ALTER TABLE `catalog_product_entity`
-    MODIFY COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0 AUTO_INCREMENT;
-ALTER TABLE `catalog_product_entity`
+    DROP COLUMN IF EXISTS `updated_in`,
+    MODIFY COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0 AUTO_INCREMENT COMMENT 'Entity ID',
     ADD PRIMARY KEY (`entity_id`);
 
 -- Foreign keys
@@ -166,23 +155,19 @@ ALTER TABLE `catalog_product_entity_tier_price`
 -- ----------------
 
 ALTER TABLE `catalog_category_product`
-    DROP FOREIGN KEY IF EXISTS CAT_CTGR_PRD_PRD_ID_SEQUENCE_PRD_SEQUENCE_VAL;
-ALTER TABLE `catalog_category_product`
+    DROP FOREIGN KEY IF EXISTS `CAT_CTGR_PRD_PRD_ID_SEQUENCE_PRD_SEQUENCE_VAL`,
     ADD FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 ALTER TABLE `catalog_compare_item`
-    DROP FOREIGN KEY IF EXISTS CATALOG_COMPARE_ITEM_PRODUCT_ID_SEQUENCE_PRODUCT_SEQUENCE_VALUE;
-ALTER TABLE `catalog_compare_item`
+    DROP FOREIGN KEY IF EXISTS `CATALOG_COMPARE_ITEM_PRODUCT_ID_SEQUENCE_PRODUCT_SEQUENCE_VALUE`,
     ADD FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 ALTER TABLE `catalog_product_bundle_price_index`
-    DROP FOREIGN KEY IF EXISTS CAT_PRD_BNDL_PRICE_IDX_ENTT_ID_SEQUENCE_PRD_SEQUENCE_VAL;
-ALTER TABLE `catalog_product_bundle_price_index`
+    DROP FOREIGN KEY IF EXISTS `CAT_PRD_BNDL_PRICE_IDX_ENTT_ID_SEQUENCE_PRD_SEQUENCE_VAL`,
     ADD FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 ALTER TABLE `catalog_product_bundle_selection`
-    DROP FOREIGN KEY IF EXISTS CAT_PRD_BNDL_SELECTION_PRD_ID_SEQUENCE_PRD_SEQUENCE_VAL;
-ALTER TABLE `catalog_product_bundle_selection`
+    DROP FOREIGN KEY IF EXISTS `CAT_PRD_BNDL_SELECTION_PRD_ID_SEQUENCE_PRD_SEQUENCE_VAL`,
     ADD FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 
