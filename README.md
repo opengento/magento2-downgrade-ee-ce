@@ -26,6 +26,7 @@ However the usage of this tool is advised.
 **READY TO USE:**
 
 - [Attributes](./scripts/attributes.sql)
+- [SalesRule](./scripts/salesrule.sql)
 - [CatalogRule](./scripts/catalogrule.sql)
 - [Category](./scripts/category.sql)
 
