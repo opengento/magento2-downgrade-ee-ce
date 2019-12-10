@@ -37,6 +37,31 @@ ALTER TABLE `downloadable_link`
 ALTER TABLE `downloadable_sample`
     ADD COLUMN `new_product_id` INT(10) UNSIGNED NOT NULL COMMENT 'Product ID';
 
+-- Enable `product_id` column for product link
+
+ALTER TABLE `catalog_product_link`
+    ADD COLUMN `new_product_id` INT(10) UNSIGNED NOT NULL COMMENT 'Product ID';
+
+-- Enable `product_id` column for product option
+
+ALTER TABLE `catalog_product_option`
+    ADD COLUMN `new_product_id` INT(10) UNSIGNED NOT NULL COMMENT 'Product ID';
+
+-- Enable `child_id` & `parent_id` columns for product relation
+
+ALTER TABLE `catalog_product_relation`
+    ADD COLUMN `new_parent_id` INT(10) UNSIGNED NOT NULL COMMENT 'Parent ID';
+
+-- Enable `product_id` column for super attribute
+
+ALTER TABLE `catalog_product_super_attribute`
+    ADD COLUMN `new_product_id` INT(10) UNSIGNED NOT NULL COMMENT 'Product ID';
+
+-- Enable `parent_id` column for super link
+
+ALTER TABLE `catalog_product_super_link`
+    ADD COLUMN `new_parent_id` INT(10) UNSIGNED NOT NULL COMMENT 'Parent ID';
+
 -- Clean duplicate for catalog product entity
 
 DELETE e
@@ -102,6 +127,97 @@ WHERE 1;
 UPDATE `downloadable_sample` v INNER JOIN `catalog_product_entity` e ON v.`product_id` = e.`row_id`
 SET v.`new_product_id` = e.`entity_id`
 WHERE 1;
+
+-- Populate `product_id` column for product link
+
+UPDATE `catalog_product_link` v INNER JOIN `catalog_product_entity` e ON v.`product_id` = e.`row_id`
+SET v.`new_product_id` = e.`entity_id`
+WHERE 1;
+
+-- Populate `product_id` column for product option
+
+UPDATE `catalog_product_option` v INNER JOIN `catalog_product_entity` e ON v.`product_id` = e.`row_id`
+SET v.`new_product_id` = e.`entity_id`
+WHERE 1;
+
+-- Populate `parent_id` columns for product relation
+
+UPDATE `catalog_product_relation` v INNER JOIN `catalog_product_entity` e ON v.`parent_id` = e.`row_id`
+SET v.`new_parent_id` = e.`entity_id`
+WHERE 1;
+
+-- Populate `product_id` column for super attribute
+
+UPDATE `catalog_product_super_attribute` v INNER JOIN `catalog_product_entity` e ON v.`product_id` = e.`row_id`
+SET v.`new_product_id` = e.`entity_id`
+WHERE 1;
+
+-- Populate `product_id` column for super link
+
+UPDATE `catalog_product_super_link` v INNER JOIN `catalog_product_entity` e ON v.`parent_id` = e.`row_id`
+SET v.`new_parent_id` = e.`entity_id`
+WHERE 1;
+
+-- -------------
+-- Super Link --
+-- -------------
+
+ALTER TABLE `catalog_product_super_link`
+    DROP FOREIGN KEY IF EXISTS `CAT_PRD_SPR_LNK_PARENT_ID_CAT_PRD_ENTT_ROW_ID`,
+    DROP FOREIGN KEY IF EXISTS `CAT_PRD_SPR_LNK_PRD_ID_SEQUENCE_PRD_SEQUENCE_VAL`,
+    DROP INDEX IF EXISTS `CATALOG_PRODUCT_SUPER_LINK_PARENT_ID`,
+    DROP INDEX IF EXISTS `CATALOG_PRODUCT_SUPER_LINK_PRODUCT_ID_PARENT_ID`,
+    DROP COLUMN IF EXISTS `parent_id`,
+    RENAME COLUMN `new_parent_id` TO `parent_id`,
+    ADD INDEX `CATALOG_PRODUCT_SUPER_LINK_PARENT_ID` (`product_id`),
+    ADD CONSTRAINT `CATALOG_PRODUCT_SUPER_LINK_PRODUCT_ID_PARENT_ID` UNIQUE KEY (`product_id`,`parent_id`);
+
+-- ------------------
+-- Super Attribute --
+-- ------------------
+
+ALTER TABLE `catalog_product_super_attribute`
+    DROP FOREIGN KEY IF EXISTS `CAT_PRD_SPR_ATTR_PRD_ID_CAT_PRD_ENTT_ROW_ID`,
+    DROP INDEX IF EXISTS `CATALOG_PRODUCT_SUPER_ATTRIBUTE_PRODUCT_ID_ATTRIBUTE_ID`,
+    DROP COLUMN IF EXISTS `product_id`,
+    RENAME COLUMN `new_product_id` TO `product_id`,
+    ADD CONSTRAINT `CATALOG_PRODUCT_SUPER_ATTRIBUTE_PRODUCT_ID_ATTRIBUTE_ID` UNIQUE KEY (`product_id`,`attribute_id`);
+
+-- -------------------
+-- Product Relation --
+-- -------------------
+
+ALTER TABLE `catalog_product_relation`
+    DROP FOREIGN KEY IF EXISTS `CAT_PRD_RELATION_PARENT_ID_CAT_PRD_ENTT_ENTT_ID`,
+    DROP FOREIGN KEY IF EXISTS `CAT_PRD_RELATION_CHILD_ID_SEQUENCE_PRD_SEQUENCE_VAL`,
+    DROP PRIMARY KEY,
+    DROP COLUMN IF EXISTS `parent_id`,
+    RENAME COLUMN `new_parent_id` TO `parent_id`,
+    ADD INDEX `CATALOG_PRODUCT_OPTION_PRODUCT_ID` (`product_id`),
+    ADD PRIMARY KEY (`parent_id`,`child_id`);
+
+-- -----------------
+-- Product Option --
+-- -----------------
+
+ALTER TABLE `catalog_product_option`
+    DROP FOREIGN KEY IF EXISTS `CATALOG_PRODUCT_OPTION_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ROW_ID`,
+    DROP INDEX IF EXISTS `CATALOG_PRODUCT_OPTION_PRODUCT_ID`,
+    DROP COLUMN IF EXISTS `product_id`,
+    RENAME COLUMN `new_product_id` TO `product_id`,
+    ADD INDEX `CATALOG_PRODUCT_OPTION_PRODUCT_ID` (`product_id`);
+
+-- ---------------
+-- Product Link --
+-- ---------------
+
+ALTER TABLE `catalog_product_link`
+    DROP FOREIGN KEY IF EXISTS `CATALOG_PRODUCT_LINK_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ROW_ID`,
+    DROP FOREIGN KEY IF EXISTS `CAT_PRD_LNK_LNKED_PRD_ID_SEQUENCE_PRD_SEQUENCE_VAL`,
+    DROP INDEX IF EXISTS `CATALOG_PRODUCT_LINK_PRODUCT_ID`,
+    DROP COLUMN IF EXISTS `product_id`,
+    RENAME COLUMN `new_product_id` TO `product_id`,
+    ADD INDEX CATALOG_PRODUCT_LINK_PRODUCT_ID (`product_id`);
 
 -- ---------------
 -- Downloadable --
@@ -277,6 +393,19 @@ ALTER TABLE `downloadable_link`
     ADD CONSTRAINT `DOWNLOADABLE_LINK_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 ALTER TABLE `downloadable_sample`
     ADD CONSTRAINT `DOWNLOADABLE_SAMPLE_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `catalog_product_link`
+    ADD CONSTRAINT `CATALOG_PRODUCT_LINK_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+    ADD CONSTRAINT `CAT_PRD_LNK_LNKED_PRD_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`linked_product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `catalog_product_option`
+    ADD CONSTRAINT `CAT_PRD_OPT_PRD_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `catalog_product_relation`
+    ADD CONSTRAINT `CAT_PRD_RELATION_CHILD_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`child_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+    ADD CONSTRAINT `CAT_PRD_RELATION_PARENT_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`parent_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `catalog_product_super_attribute`
+    ADD CONSTRAINT `CAT_PRD_SPR_ATTR_PRD_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `catalog_product_super_link`
+    ADD CONSTRAINT `CAT_PRD_SPR_LNK_PARENT_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`parent_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+    ADD CONSTRAINT `CAT_PRD_SPR_LNK_PRD_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 -- ----------------
 -- Drop sequence --
@@ -293,14 +422,6 @@ ALTER TABLE `catalog_compare_item`
 ALTER TABLE `catalog_product_bundle_price_index`
     DROP FOREIGN KEY IF EXISTS `CAT_PRD_BNDL_PRICE_IDX_ENTT_ID_SEQUENCE_PRD_SEQUENCE_VAL`,
     ADD CONSTRAINT `CAT_PRD_BNDL_PRICE_IDX_ENTT_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
-
-
--- catalog_product_link
--- catalog_product_option
--- catalog_product_relation
--- catalog_product_super_attributes
--- catalog_product_super_link
-
 
 -- catalog_product_index_tier_price
 -- catalog_product_website
