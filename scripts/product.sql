@@ -30,6 +30,13 @@ ALTER TABLE `catalog_product_bundle_selection`
 ALTER TABLE `catalog_product_bundle_selection_price`
     ADD COLUMN `new_parent_product_id` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'Parent Product ID';
 
+-- Enable `product_id` column for downloadable
+
+ALTER TABLE `downloadable_link`
+    ADD COLUMN `new_product_id` INT(10) UNSIGNED NOT NULL COMMENT 'Product ID';
+ALTER TABLE `downloadable_sample`
+    ADD COLUMN `new_product_id` INT(10) UNSIGNED NOT NULL COMMENT 'Product ID';
+
 -- Clean duplicate for catalog product entity
 
 DELETE e
@@ -86,6 +93,31 @@ WHERE 1;
 UPDATE `catalog_product_bundle_selection_price` v INNER JOIN `catalog_product_entity` e ON v.`parent_product_id` = e.`row_id`
 SET v.`new_parent_product_id` = e.`entity_id`
 WHERE 1;
+
+-- Populate `product_id` column for downloadable
+
+UPDATE `downloadable_link` v INNER JOIN `catalog_product_entity` e ON v.`product_id` = e.`row_id`
+SET v.`new_product_id` = e.`entity_id`
+WHERE 1;
+UPDATE `downloadable_sample` v INNER JOIN `catalog_product_entity` e ON v.`product_id` = e.`row_id`
+SET v.`new_product_id` = e.`entity_id`
+WHERE 1;
+
+-- ---------------
+-- Downloadable --
+-- ---------------
+
+ALTER TABLE `downloadable_link`
+    DROP FOREIGN KEY IF EXISTS `DOWNLOADABLE_LINK_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ROW_ID`,
+    DROP INDEX IF EXISTS `DOWNLOADABLE_LINK_PRODUCT_ID_SORT_ORDER`,
+    DROP COLUMN IF EXISTS `product_id`,
+    RENAME COLUMN `new_product_id` TO `product_id`,
+    ADD INDEX `DOWNLOADABLE_LINK_PRODUCT_ID_SORT_ORDER` (`product_id`,`sort_order`);
+
+ALTER TABLE `downloadable_sample`
+    DROP FOREIGN KEY IF EXISTS `DOWNLOADABLE_SAMPLE_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ROW_ID`,
+    DROP COLUMN IF EXISTS `product_id`,
+    RENAME COLUMN `new_product_id` TO `product_id`;
 
 -- -----------------
 -- Product Bundle --
@@ -241,6 +273,10 @@ ALTER TABLE `catalog_product_bundle_option`
     ADD CONSTRAINT `CAT_PRD_BNDL_OPT_PARENT_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`parent_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 ALTER TABLE `catalog_product_bundle_selection`
     ADD CONSTRAINT `CAT_PRD_BNDL_SELECTION_PRD_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `downloadable_link`
+    ADD CONSTRAINT `DOWNLOADABLE_LINK_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `downloadable_sample`
+    ADD CONSTRAINT `DOWNLOADABLE_SAMPLE_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 -- ----------------
 -- Drop sequence --
@@ -282,5 +318,3 @@ ALTER TABLE `catalog_product_bundle_price_index`
 
 
 DROP TABLE `sequence_product_bundle_option`,`sequence_product_bundle_selection`,`sequence_product`;
-
--- todo add constraint name for the foreign keys
