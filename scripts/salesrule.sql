@@ -1,3 +1,13 @@
+DROP TABLE IF EXISTS
+    `magento_banner_salesrule`,
+    `magento_reward_salesrule`,
+    `magento_salesrule_filter`,
+    `magento_reminder_rule_coupon`,
+    `magento_reminder_rule_website`,
+    `magento_reminder_template`,
+    `magento_reminder_rule_log`,
+    `magento_reminder_rule`;
+
 -- Enable `rule_id` column for salesrule
 
 ALTER TABLE `salesrule_customer_group`
@@ -87,4 +97,4 @@ ALTER TABLE `salesrule_label`
     DROP FOREIGN KEY IF EXISTS `SALESRULE_LABEL_RULE_ID_SEQUENCE_SALESRULE_SEQUENCE_VALUE`,
     ADD CONSTRAINT `SALESRULE_LABEL_RULE_ID_SALESRULE_RULE_ID` FOREIGN KEY (`rule_id`) REFERENCES `salesrule` (`rule_id`);
 
-DROP TABLE IF EXISTS `magento_banner_salesrule`,`magento_reward_salesrule`,`magento_salesrule_filter`,`sequence_salesrule`;
+DROP TABLE IF EXISTS `sequence_salesrule`;

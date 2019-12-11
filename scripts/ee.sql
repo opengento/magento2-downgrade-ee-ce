@@ -2,7 +2,6 @@
 
 DROP TABLE IF EXISTS
     `magento_catalogpermissions`,
-    `magento_giftregistry_item`,
     `magento_targetrule_product`,
     `visual_merchandiser_rule`;
 
@@ -21,11 +20,18 @@ DROP TABLE IF EXISTS
 # `magento_banner_catalogrule`,
 # `magento_catalogevent_event_image`,
 # `magento_catalogevent_event`,
-# `sequence_cms_page`,
-# `sequence_cms_block`,
-# `sequence_salesrule`,
-# `sequence_catalogrule`
+# `magento_reminder_rule_coupon`,
+# `magento_reminder_rule_website`,
+# `magento_reminder_template`,
+# `magento_reminder_rule_log`,
+# `magento_reminder_rule`
+# `magento_giftregistry_item_option`,
+# `magento_giftregistry_item`,
 # `sequence_catalog_category`
 # `sequence_product_bundle_option`,
 # `sequence_product_bundle_selection`,
 # `sequence_product`,
+# `sequence_cms_page`,
+# `sequence_cms_block`,
+# `sequence_salesrule`,
+# `sequence_catalogrule`
