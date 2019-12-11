@@ -359,7 +359,7 @@ ALTER TABLE `catalog_product_entity_tier_price`
     DROP COLUMN IF EXISTS `row_id`;
 
 -- Entity
-#SET FOREIGN_KEY_CHECKS = 0; # Uncomment if you have third party module with references;
+SET FOREIGN_KEY_CHECKS = 0; # Many third party modules refers to the `entity_id` column, we prevent blocking.
 ALTER TABLE `catalog_product_entity`
     DROP INDEX IF EXISTS `CATALOG_PRODUCT_ENTITY_ENTITY_ID_CREATED_IN_UPDATED_IN`,
     DROP FOREIGN KEY IF EXISTS `CATALOG_PRODUCT_ENTITY_ENTITY_ID_SEQUENCE_PRODUCT_SEQUENCE_VALUE`,
@@ -368,7 +368,7 @@ ALTER TABLE `catalog_product_entity`
     DROP COLUMN IF EXISTS `updated_in`,
     MODIFY COLUMN `entity_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Entity ID',
     ADD PRIMARY KEY (`entity_id`);
-#SET FOREIGN_KEY_CHECKS = 1; # Uncomment too
+SET FOREIGN_KEY_CHECKS = 1;
 
 -- Foreign keys
 ALTER TABLE `catalog_product_entity_datetime`

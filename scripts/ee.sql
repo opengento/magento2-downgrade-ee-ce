@@ -1,5 +1,11 @@
 -- Drop EE tables
 
+-- ------------------------------------------------------ --
+-- Here we drop the tables without the foreign key check, --
+-- because unless your custom development refers to them, --
+-- it won't have any interest to keep them in CE          --
+-- ------------------------------------------------------ --
+
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS
     `magento_acknowledged_bulk`,
