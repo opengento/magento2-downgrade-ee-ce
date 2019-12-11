@@ -1,0 +1,7 @@
+mysql -u <user> -p<password> <database> < ./scripts/attributes.sql
+mysql -u <user> -p<password> <database> < ./scripts/catalogrule.sql
+mysql -u <user> -p<password> <database> < ./scripts/salesrule.sql
+mysql -u <user> -p<password> <database> < ./scripts/category.sql
+mysql -u <user> -p<password> <database> < ./scripts/product.sql
+mysql -u <user> -p<password> <database> < ./scripts/cms.sql
+mysql -u <user> -p<password> <database> < ./scripts/ee.sql
