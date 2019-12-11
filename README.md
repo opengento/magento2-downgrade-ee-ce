@@ -13,6 +13,7 @@ However the usage of this tool is advised.
 **NOTICE**
 - This tool has been test with a Magento Commerce 2.2.* version.
 - This tool has not been tested with a split database configuration.
+- This tool is written in MariaDB dialect.
 
 ## How to use
 
@@ -31,14 +32,8 @@ However the usage of this tool is advised.
 - [CatalogRule](./scripts/catalogrule.sql)
 - [Category](./scripts/category.sql)
 - [Product](./scripts/product.sql)
-- [EE Tables](./scripts/ee.sql)
-
-**WIP:**
-
 - [CMS](./scripts/cms.sql)
-
-**NOTICE**
-- Why `SET FOREIGN_KEY_CHECKS = 0;` is not used? Because it's harmful and we want to be sure to don't lost any data.
+- [EE Tables](./scripts/ee.sql)
 
 ## Similar package
 
