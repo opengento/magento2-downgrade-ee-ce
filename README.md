@@ -29,12 +29,12 @@ However the usage of this tool is advised.
 - [SalesRule](./scripts/salesrule.sql)
 - [CatalogRule](./scripts/catalogrule.sql)
 - [Category](./scripts/category.sql)
+- [Product](./scripts/product.sql)
 
 **WIP:**
 
 - [EE Tables](./scripts/ee.sql)
 - [CMS](./scripts/cms.sql)
-- [Product](./scripts/product.sql)
 
 **NOTICE**
 - Why `SET FOREIGN_KEY_CHECKS = 0;` is not used? Because it's harmful and we want to be sure to don't lost any data.
