@@ -11,6 +11,7 @@ migrate from EE to CE if you have a ***fresh install of a Magento `>=2.3`***.
 However the usage of this tool is advised.
 
 **NOTICE**
+- This tool has been test with a Magento Commerce 2.2.* version.
 - This tool has not been tested with a split database configuration.
 
 ## How to use
@@ -30,10 +31,10 @@ However the usage of this tool is advised.
 - [CatalogRule](./scripts/catalogrule.sql)
 - [Category](./scripts/category.sql)
 - [Product](./scripts/product.sql)
+- [EE Tables](./scripts/ee.sql)
 
 **WIP:**
 
-- [EE Tables](./scripts/ee.sql)
 - [CMS](./scripts/cms.sql)
 
 **NOTICE**
