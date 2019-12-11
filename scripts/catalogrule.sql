@@ -63,4 +63,4 @@ ALTER TABLE `catalogrule_website`
 -- Drop sequence --
 -- ----------------
 
-DROP TABLE IF EXISTS `magento_banner_catalogrule`,`sequence_catalogrule`;
+DROP TABLE IF EXISTS `sequence_catalogrule`;
