@@ -40,34 +40,34 @@ WHERE 1;
 
 -- Update the `block_id` relation link for block store
 ALTER TABLE `cms_block_store`
-    DROP FOREIGN KEY IF EXISTS `CMS_BLOCK_STORE_ROW_ID_CMS_BLOCK_ROW_ID`,
+    DROP FOREIGN KEY `CMS_BLOCK_STORE_ROW_ID_CMS_BLOCK_ROW_ID`,
     DROP PRIMARY KEY,
-    DROP COLUMN IF EXISTS `row_id`,
+    DROP COLUMN `row_id`,
     ADD PRIMARY KEY (`block_id`,`store_id`);
 
 SET FOREIGN_KEY_CHECKS = 0; # Many third party modules refers to the `block_id` column, we prevent blocking.
 ALTER TABLE `cms_block`
-    DROP FOREIGN KEY IF EXISTS `CMS_BLOCK_BLOCK_ID_SEQUENCE_CMS_BLOCK_SEQUENCE_VALUE`,
-    DROP COLUMN IF EXISTS `row_id`,
-    DROP COLUMN IF EXISTS `created_in`,
-    DROP COLUMN IF EXISTS `updated_in`,
+    DROP FOREIGN KEY `CMS_BLOCK_BLOCK_ID_SEQUENCE_CMS_BLOCK_SEQUENCE_VALUE`,
+    DROP COLUMN `row_id`,
+    DROP COLUMN `created_in`,
+    DROP COLUMN `updated_in`,
     ADD PRIMARY KEY (`block_id`),
     MODIFY COLUMN `block_id` SMALLINT(6) NOT NULL AUTO_INCREMENT COMMENT 'Entity ID';
 SET FOREIGN_KEY_CHECKS = 1;
 
 -- Update the `page_id` relation link for page store
 ALTER TABLE `cms_page_store`
-    DROP FOREIGN KEY IF EXISTS `CMS_PAGE_STORE_ROW_ID_CMS_PAGE_ROW_ID`,
+    DROP FOREIGN KEY `CMS_PAGE_STORE_ROW_ID_CMS_PAGE_ROW_ID`,
     DROP PRIMARY KEY,
-    DROP COLUMN IF EXISTS `row_id`,
+    DROP COLUMN `row_id`,
     ADD PRIMARY KEY (`page_id`,`store_id`);
 
 SET FOREIGN_KEY_CHECKS = 0; # Many third party modules refers to the `page_id` column, we prevent blocking.
 ALTER TABLE `cms_page`
-    DROP FOREIGN KEY IF EXISTS `CMS_PAGE_PAGE_ID_SEQUENCE_CMS_PAGE_SEQUENCE_VALUE`,
-    DROP COLUMN IF EXISTS `row_id`,
-    DROP COLUMN IF EXISTS `created_in`,
-    DROP COLUMN IF EXISTS `updated_in`,
+    DROP FOREIGN KEY `CMS_PAGE_PAGE_ID_SEQUENCE_CMS_PAGE_SEQUENCE_VALUE`,
+    DROP COLUMN `row_id`,
+    DROP COLUMN `created_in`,
+    DROP COLUMN `updated_in`,
     ADD PRIMARY KEY (`page_id`),
     MODIFY COLUMN `page_id` SMALLINT(6) NOT NULL AUTO_INCREMENT COMMENT 'Entity ID';
 SET FOREIGN_KEY_CHECKS = 1;
@@ -84,4 +84,4 @@ ALTER TABLE `cms_page_store`
 -- Drop sequence --
 -- ----------------
 
-DROP TABLE IF EXISTS `sequence_cms_page`,`sequence_cms_block`;
+DROP TABLE `sequence_cms_page`,`sequence_cms_block`;

@@ -13,7 +13,6 @@ However the usage of this tool is advised.
 **NOTICE**
 - This tool has been test with a Magento Commerce 2.2.* version.
 - This tool has not been tested with a split database configuration.
-- This tool is written in MariaDB dialect.
 
 ## How to use
 

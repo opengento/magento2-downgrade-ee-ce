@@ -32,24 +32,24 @@ WHERE 1;
 
 -- Customer group
 ALTER TABLE `catalogrule_customer_group`
-    DROP FOREIGN KEY IF EXISTS `CATALOGRULE_CUSTOMER_GROUP_ROW_ID_CATALOGRULE_ROW_ID`,
+    DROP FOREIGN KEY `CATALOGRULE_CUSTOMER_GROUP_ROW_ID_CATALOGRULE_ROW_ID`,
     DROP PRIMARY KEY,
     ADD PRIMARY KEY (`rule_id`,`customer_group_id`),
-    DROP COLUMN IF EXISTS `row_id`;
+    DROP COLUMN `row_id`;
 
 -- Website
 ALTER TABLE `catalogrule_website`
-    DROP FOREIGN KEY IF EXISTS `CATALOGRULE_WEBSITE_ROW_ID_CATALOGRULE_ROW_ID`,
+    DROP FOREIGN KEY `CATALOGRULE_WEBSITE_ROW_ID_CATALOGRULE_ROW_ID`,
     DROP PRIMARY KEY,
     ADD PRIMARY KEY (`rule_id`,`website_id`),
     DROP COLUMN `row_id`;
 
 -- Catalogrule
 ALTER TABLE `catalogrule`
-    DROP FOREIGN KEY IF EXISTS `CATALOGRULE_RULE_ID_SEQUENCE_CATALOGRULE_SEQUENCE_VALUE`,
-    DROP COLUMN IF EXISTS `row_id`,
-    DROP COLUMN IF EXISTS `created_in`,
-    DROP COLUMN IF EXISTS `updated_in`,
+    DROP FOREIGN KEY `CATALOGRULE_RULE_ID_SEQUENCE_CATALOGRULE_SEQUENCE_VALUE`,
+    DROP COLUMN `row_id`,
+    DROP COLUMN `created_in`,
+    DROP COLUMN `updated_in`,
     ADD PRIMARY KEY (`rule_id`),
     MODIFY COLUMN `rule_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Entity ID';
 
@@ -63,4 +63,4 @@ ALTER TABLE `catalogrule_website`
 -- Drop sequence --
 -- ----------------
 
-DROP TABLE IF EXISTS `sequence_catalogrule`;
+DROP TABLE `sequence_catalogrule`;
