@@ -1,6 +1,10 @@
 -- Remove EE attributes
 
 DELETE
+FROM `eav_entity_type`
+WHERE `entity_type_code` IN ('rma_item','cms_page','cms_block');
+
+DELETE
 FROM `eav_attribute`
 WHERE `attribute_code` IN (
                            'reward_update_notification',
