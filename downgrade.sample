@@ -5,3 +5,13 @@ mysql -u <user> -p<password> <database> < ./scripts/catalogrule.sql
 mysql -u <user> -p<password> <database> < ./scripts/salesrule.sql
 mysql -u <user> -p<password> <database> < ./scripts/category.sql
 mysql -u <user> -p<password> <database> < ./scripts/product.sql
+
+
+source  /var/www/magento/magento2-downgrade-ee-ce/scripts/attributes.sql
+source  /var/www/magento/magento2-downgrade-ee-ce/scripts/ee.sql
+source  /var/www/magento/magento2-downgrade-ee-ce/scripts/cms.sql
+source  /var/www/magento/magento2-downgrade-ee-ce/scripts/catalogrule.sql
+source  /var/www/magento/magento2-downgrade-ee-ce/scripts/salesrule.sql
+source  /var/www/magento/magento2-downgrade-ee-ce/scripts/category.sql
+source  /var/www/magento/magento2-downgrade-ee-ce/scripts/product.sql
+source  /var/www/magento/magento2-downgrade-ee-ce/scripts/client.sql

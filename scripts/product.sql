@@ -158,6 +158,15 @@ UPDATE `catalog_product_super_link` v INNER JOIN `catalog_product_entity` e ON v
 SET v.`new_parent_id` = e.`entity_id`
 WHERE 1;
 
+
+-- Populate `product_id` column for email_catalog
+ALTER TABLE `email_catalog`
+    ADD COLUMN `new_product_id` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'Product ID';
+UPDATE `email_catalog` v INNER JOIN `catalog_product_entity` e ON v.`product_id` = e.`row_id`
+    SET v.`new_product_id` = e.`entity_id`
+WHERE 1;
+
+
 -- -------------
 -- Super Link --
 -- -------------
@@ -175,7 +184,7 @@ ALTER TABLE `catalog_product_super_link`
 -- ------------------
 -- Super Attribute --
 -- ------------------
-
+DELETE FROM `catalog_product_super_attribute` WHERE `new_product_id` = 0;
 ALTER TABLE `catalog_product_super_attribute`
     DROP FOREIGN KEY `CAT_PRD_SPR_ATTR_PRD_ID_CAT_PRD_ENTT_ROW_ID`,
     DROP INDEX `CATALOG_PRODUCT_SUPER_ATTRIBUTE_PRODUCT_ID_ATTRIBUTE_ID`,
@@ -187,8 +196,9 @@ ALTER TABLE `catalog_product_super_attribute`
 -- Product Relation --
 -- -------------------
 
+DELETE FROM `catalog_product_relation` WHERE `new_parent_id` = 0;
 ALTER TABLE `catalog_product_relation`
-    DROP FOREIGN KEY `CAT_PRD_RELATION_PARENT_ID_CAT_PRD_ENTT_ENTT_ID`,
+    DROP FOREIGN KEY `CATALOG_PRODUCT_RELATION_PARENT_ID_CATALOG_PRODUCT_ENTITY_ROW_ID`,
     DROP FOREIGN KEY `CAT_PRD_RELATION_CHILD_ID_SEQUENCE_PRD_SEQUENCE_VAL`,
     DROP PRIMARY KEY,
     DROP COLUMN `parent_id`,
@@ -269,7 +279,7 @@ ALTER TABLE `catalog_product_bundle_option`
     DROP PRIMARY KEY,
     DROP COLUMN `parent_id`,
     CHANGE COLUMN `new_parent_id` `parent_id` INT(10) UNSIGNED NOT NULL COMMENT 'Parent ID',
-    ADD CONSTRAINT `CATALOG_PRODUCT_BUNDLE_OPTION_PARENT_ID` UNIQUE KEY (`parent_id`),
+    ADD CONSTRAINT `CATALOG_PRODUCT_BUNDLE_OPTION_PARENT_ID_KEY` UNIQUE KEY (`parent_id`),
     MODIFY COLUMN `option_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Option ID',
     ADD PRIMARY KEY (`option_id`);
 
@@ -287,7 +297,7 @@ ALTER TABLE `catalog_product_bundle_selection`
     ADD CONSTRAINT `CAT_PRD_BNDL_SELECTION_OPT_ID_CAT_PRD_BNDL_OPT_OPT_ID` FOREIGN KEY (`option_id`) REFERENCES `catalog_product_bundle_option` (`option_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 ALTER TABLE `catalog_product_bundle_selection_price`
-    ADD CONSTRAINT `CATALOG_PRODUCT_BUNDLE_SELECTION_PRICE_WEBSITE_ID` FOREIGN KEY (`website_id`) REFERENCES `store_website` (`website_id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+    ADD CONSTRAINT `CATALOG_PRODUCT_BUNDLE_SELECTION_PRICE_WEBSITE_ID_KEY` FOREIGN KEY (`website_id`) REFERENCES `store_website` (`website_id`) ON DELETE CASCADE ON UPDATE RESTRICT,
     ADD CONSTRAINT `FK_DCF37523AA05D770A70AA4ED7C2616E4` FOREIGN KEY (`selection_id`) REFERENCES `catalog_product_bundle_selection` (`selection_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 -- ------------------------------------------------------------------
@@ -295,69 +305,82 @@ ALTER TABLE `catalog_product_bundle_selection_price`
 -- ------------------------------------------------------------------
 
 -- Datetime
+delete from catalog_product_entity_datetime where  entity_id = 0;
 ALTER TABLE `catalog_product_entity_datetime`
     DROP FOREIGN KEY `CAT_PRD_ENTT_DTIME_ROW_ID_CAT_PRD_ENTT_ROW_ID`,
-    DROP INDEX `CATALOG_PRODUCT_ENTITY_DATETIME_ENTITY_ID_ATTRIBUTE_ID_STORE_ID`,
+    DROP INDEX `CATALOG_PRODUCT_ENTITY_DATETIME_ROW_ID_ATTRIBUTE_ID_STORE_ID`,
     ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_DATETIME_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`,`attribute_id`,`store_id`),
     DROP COLUMN `row_id`;
 
 -- Decimal
+delete from catalog_product_entity_decimal where  entity_id = 0;
 ALTER TABLE `catalog_product_entity_decimal`
     DROP FOREIGN KEY `CAT_PRD_ENTT_DEC_ROW_ID_CAT_PRD_ENTT_ROW_ID`,
-    DROP INDEX `CATALOG_PRODUCT_ENTITY_DECIMAL_ENTITY_ID_ATTRIBUTE_ID_STORE_ID`,
+    DROP INDEX `CATALOG_PRODUCT_ENTITY_DECIMAL_ROW_ID_ATTRIBUTE_ID_STORE_ID`,
     ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_DECIMAL_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`,`attribute_id`,`store_id`),
     DROP COLUMN `row_id`;
 
 -- Int
+delete from catalog_product_entity_int where  entity_id = 0;
 ALTER TABLE `catalog_product_entity_int`
     DROP FOREIGN KEY `CATALOG_PRODUCT_ENTITY_INT_ROW_ID_CATALOG_PRODUCT_ENTITY_ROW_ID`,
-    DROP INDEX `CATALOG_PRODUCT_ENTITY_INT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID`,
+    DROP INDEX `CATALOG_PRODUCT_ENTITY_INT_ROW_ID_ATTRIBUTE_ID_STORE_ID`,
     ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_INT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`,`attribute_id`,`store_id`),
     DROP COLUMN `row_id`;
 
 -- Text
+delete from catalog_product_entity_text where  entity_id = 0;
 ALTER TABLE `catalog_product_entity_text`
     DROP FOREIGN KEY `CATALOG_PRODUCT_ENTITY_TEXT_ROW_ID_CATALOG_PRODUCT_ENTITY_ROW_ID`,
-    DROP INDEX `CATALOG_PRODUCT_ENTITY_TEXT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID`,
+    DROP INDEX `CATALOG_PRODUCT_ENTITY_TEXT_ROW_ID_ATTRIBUTE_ID_STORE_ID`,
     ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_TEXT_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`,`attribute_id`,`store_id`),
     DROP COLUMN `row_id`;
 
 -- Varchar
+delete from catalog_product_entity_varchar where  entity_id = 0;
 ALTER TABLE `catalog_product_entity_varchar`
     DROP FOREIGN KEY `CAT_PRD_ENTT_VCHR_ROW_ID_CAT_PRD_ENTT_ROW_ID`,
-    DROP INDEX `CATALOG_PRODUCT_ENTITY_VARCHAR_ENTITY_ID_ATTRIBUTE_ID_STORE_ID`,
+    DROP INDEX `CATALOG_PRODUCT_ENTITY_VARCHAR_ROW_ID_ATTRIBUTE_ID_STORE_ID`,
     ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_VARCHAR_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`,`attribute_id`,`store_id`),
     DROP COLUMN `row_id`;
 
 -- Gallery value to entity
+delete from catalog_product_entity_media_gallery_value_to_entity where  entity_id = 0;
 ALTER TABLE `catalog_product_entity_media_gallery_value_to_entity`
     DROP FOREIGN KEY `CAT_PRD_ENTT_MDA_GLR_VAL_TO_ENTT_ROW_ID_CAT_PRD_ENTT_ROW_ID`,
-    DROP INDEX `CAT_PRD_ENTT_MDA_GLR_VAL_TO_ENTT_VAL_ID_ENTT_ID`,
+    DROP INDEX `CAT_PRD_ENTT_MDA_GLR_VAL_TO_ENTT_VAL_ID_ROW_ID`,
     ADD CONSTRAINT `CAT_PRD_ENTT_MDA_GLR_VAL_TO_ENTT_VAL_ID_ENTT_ID` UNIQUE KEY (`value_id`,`entity_id`),
     DROP COLUMN `row_id`;
 
 -- Gallery value
+delete from catalog_product_entity_media_gallery_value where  entity_id = 0;
+DELETE FROM catalog_product_entity_media_gallery_value WHERE record_id IN (
+    SELECT * FROM ( SELECT MAX(record_id) FROM catalog_product_entity_media_gallery_value
+                      GROUP BY value_id, store_id, entity_id having count(*) > 1
+                  )  AS record_id
+);
 ALTER TABLE `catalog_product_entity_media_gallery_value`
     DROP FOREIGN KEY `CAT_PRD_ENTT_MDA_GLR_VAL_ROW_ID_CAT_PRD_ENTT_ROW_ID`,
-    DROP INDEX `CATALOG_PRODUCT_ENTITY_MEDIA_GALLERY_VALUE_ENTITY_ID`,
+    DROP INDEX `CATALOG_PRODUCT_ENTITY_MEDIA_GALLERY_VALUE_ROW_ID`,
+    DROP INDEX `CAT_PRD_ENTT_MDA_GLR_VAL_ROW_ID_VAL_ID_STORE_ID`,
     ADD INDEX `CATALOG_PRODUCT_ENTITY_MEDIA_GALLERY_VALUE_ENTITY_ID` (`entity_id`),
     ADD CONSTRAINT `CAT_PRD_ENTT_MDA_GLR_VAL_ENTT_ID_VAL_ID_STORE_ID` UNIQUE KEY (`entity_id`,`value_id`,`store_id`),
     DROP COLUMN `row_id`;
 
 -- Gallery
-ALTER TABLE `catalog_product_entity_gallery`
-    DROP FOREIGN KEY `CAT_PRD_ENTT_GLR_ROW_ID_CAT_PRD_ENTT_ROW_ID`,
-    DROP INDEX `CATALOG_PRODUCT_ENTITY_GALLERY_ENTITY_ID`,
-    DROP INDEX `CATALOG_PRODUCT_ENTITY_GALLERY_ENTITY_ID_ATTRIBUTE_ID_STORE_ID`,
-    ADD INDEX `CATALOG_PRODUCT_ENTITY_GALLERY_ENTITY_ID` (`entity_id`),
-    ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_GALLERY_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`,`attribute_id`,`store_id`),
-    DROP COLUMN `row_id`;
+delete from catalog_product_entity_gallery where  entity_id = 0;
+ALTER TABLE `catalog_product_entity_gallery` DROP FOREIGN KEY `CAT_PRD_ENTT_GLR_ROW_ID_CAT_PRD_ENTT_ROW_ID`;
+ALTER TABLE `catalog_product_entity_gallery` DROP INDEX `CATALOG_PRODUCT_ENTITY_GALLERY_ENTITY_ID`;
+ALTER TABLE `catalog_product_entity_gallery`     DROP INDEX `CATALOG_PRODUCT_ENTITY_GALLERY_ROW_ID_ATTRIBUTE_ID_STORE_ID`;
+ALTER TABLE `catalog_product_entity_gallery`     ADD INDEX `CATALOG_PRODUCT_ENTITY_GALLERY_ENTITY_ID` (`entity_id`);
+ALTER TABLE `catalog_product_entity_gallery`     ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_GALLERY_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`,`attribute_id`,`store_id`);
+ALTER TABLE `catalog_product_entity_gallery`     DROP COLUMN `row_id`;
 
 -- Tier price
 ALTER TABLE `catalog_product_entity_tier_price`
     DROP FOREIGN KEY `CAT_PRD_ENTT_TIER_PRICE_ROW_ID_CAT_PRD_ENTT_ROW_ID`,
-    DROP INDEX `UNQ_E8AB433B9ACB00343ABB312AD2FAB087`,
-    ADD CONSTRAINT `UNQ_E8AB433B9ACB00343ABB312AD2FAB087` UNIQUE KEY (`entity_id`,`all_groups`,`customer_group_id`,`qty`,`website_id`),
+    DROP INDEX `UNQ_EBC6A54F44DFA66FA9024CAD97FED6C7`,
+    ADD CONSTRAINT `UNQ_EBC6A54F44DFA66FA9024CAD97FED6C7` UNIQUE KEY (`entity_id`,`all_groups`,`customer_group_id`,`qty`,`website_id`),
     DROP COLUMN `row_id`;
 
 -- Entity
@@ -370,6 +393,13 @@ ALTER TABLE `catalog_product_entity`
     DROP COLUMN `updated_in`,
     MODIFY COLUMN `entity_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Entity ID',
     ADD PRIMARY KEY (`entity_id`);
+
+DELETE FROM `catalog_product_relation` WHERE child_id not in (SELECT entity_id from catalog_product_entity);
+DELETE FROM `catalog_product_relation` WHERE parent_id not in (SELECT entity_id from catalog_product_entity);
+
+DELETE FROM `catalog_product_super_link` WHERE product_id not in (SELECT entity_id from catalog_product_entity);
+DELETE FROM `catalog_product_super_link` WHERE parent_id not in (SELECT entity_id from catalog_product_entity);
+
 SET FOREIGN_KEY_CHECKS = 1;
 
 -- Foreign keys
@@ -484,4 +514,19 @@ ALTER TABLE `wishlist_item`
     DROP FOREIGN KEY `WISHLIST_ITEM_PRODUCT_ID_SEQUENCE_PRODUCT_SEQUENCE_VALUE`,
     ADD CONSTRAINT `WISHLIST_ITEM_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
-DROP TABLE `sequence_product_bundle_selection`,`sequence_product_bundle_option`,`sequence_product`;
+ALTER  TABLE `email_catalog`
+    DROP COLUMN product_id,
+    CHANGE COLUMN `new_product_id` `product_id` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'Parent ID';
+
+ALTER  TABLE `email_catalog`
+    DROP FOREIGN KEY EMAIL_CATALOG_PRODUCT_ID_SEQUENCE_PRODUCT_SEQUENCE_VALUE;
+
+ALTER  TABLE `email_catalog`
+    ADD CONSTRAINT `EMAIL_CATALOG_PRODUCT_ID_CATALOG_PRODUCT_ENTITY` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS
+    `sequence_product_bundle_selection`,
+    `sequence_product_bundle_option`,
+    `sequence_product`;
+SET FOREIGN_KEY_CHECKS = 1;
