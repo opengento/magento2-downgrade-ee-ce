@@ -370,8 +370,8 @@ ALTER TABLE `catalog_product_entity_media_gallery_value`
 -- Gallery
 delete from catalog_product_entity_gallery where  entity_id = 0;
 ALTER TABLE `catalog_product_entity_gallery` DROP FOREIGN KEY `CAT_PRD_ENTT_GLR_ROW_ID_CAT_PRD_ENTT_ROW_ID`;
-ALTER TABLE `catalog_product_entity_gallery` DROP INDEX `CATALOG_PRODUCT_ENTITY_GALLERY_ENTITY_ID`;
-ALTER TABLE `catalog_product_entity_gallery`     DROP INDEX `CATALOG_PRODUCT_ENTITY_GALLERY_ROW_ID_ATTRIBUTE_ID_STORE_ID`;
+ALTER TABLE `catalog_product_entity_gallery` DROP INDEX IF EXISTS `CATALOG_PRODUCT_ENTITY_GALLERY_ENTITY_ID`;
+ALTER TABLE `catalog_product_entity_gallery`     DROP INDEX IF EXISTS `CATALOG_PRODUCT_ENTITY_GALLERY_ROW_ID_ATTRIBUTE_ID_STORE_ID`;
 ALTER TABLE `catalog_product_entity_gallery`     ADD INDEX `CATALOG_PRODUCT_ENTITY_GALLERY_ENTITY_ID` (`entity_id`);
 ALTER TABLE `catalog_product_entity_gallery`     ADD CONSTRAINT `CATALOG_PRODUCT_ENTITY_GALLERY_ENTITY_ID_ATTRIBUTE_ID_STORE_ID` UNIQUE KEY (`entity_id`,`attribute_id`,`store_id`);
 ALTER TABLE `catalog_product_entity_gallery`     DROP COLUMN `row_id`;
@@ -469,8 +469,12 @@ ALTER TABLE `catalog_product_website`
     DROP FOREIGN KEY `CAT_PRD_WS_PRD_ID_SEQUENCE_PRD_SEQUENCE_VAL`,
     ADD CONSTRAINT `CAT_PRD_WS_PRD_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
+
+DELETE FROM `catalog_url_rewrite_product_category` WHERE `product_id` NOT IN (SELECT `entity_id` FROM `catalog_product_entity`);
 ALTER TABLE `catalog_url_rewrite_product_category`
-    DROP FOREIGN KEY `CAT_URL_REWRITE_PRD_CTGR_PRD_ID_SEQUENCE_PRD_SEQUENCE_VAL`,
+    DROP FOREIGN KEY if EXISTS`CAT_URL_REWRITE_PRD_CTGR_PRD_ID_SEQUENCE_PRD_SEQUENCE_VAL`;
+
+ALTER TABLE `catalog_url_rewrite_product_category`
     ADD CONSTRAINT `CAT_URL_REWRITE_PRD_CTGR_PRD_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 DELETE FROM `cataloginventory_stock_item` WHERE `product_id` NOT IN (SELECT `entity_id` FROM `catalog_product_entity`);
@@ -515,7 +519,7 @@ ALTER TABLE `wishlist_item`
     ADD CONSTRAINT `WISHLIST_ITEM_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 ALTER  TABLE `email_catalog`
-    DROP COLUMN product_id,
+    DROP COLUMN if EXISTS product_id,
     CHANGE COLUMN `new_product_id` `product_id` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'Parent ID';
 
 ALTER  TABLE `email_catalog`
