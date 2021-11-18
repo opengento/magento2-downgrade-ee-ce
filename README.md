@@ -4,15 +4,12 @@
 
 This migrating tool allows to downgrade the database schema without altering the data. The major difference between the
 two editions are the `staging` definitions that enable draft and scheduled publication. Beside that the scripts provided
-by the tool will remove some specific tables and attributes of the Magento Commerce Edition.
-
-Be aware since Magento `>=2.3` the declarative schema has been introduces. It means that this tool is not mandatory to
-migrate from EE to CE if you have a ***fresh install of a Magento `>=2.3`***.
-However the usage of this tool is advised.
+by the tool will remove some specific tables and attributes of the Magento Commerce Edition. It will also o my keep the latest version available for product and categories in staging.
 
 **NOTICE**
-- This tool has been test with a Magento Commerce 2.2.* version.
+- This tool has been initially developed for Magento Commerce 2.2.* version.
 - This tool has not been tested with a split database configuration.
+- Looking #6 it seems that the tool is working also with Magento Commerces 2.4.*
 
 ## How to use
 
