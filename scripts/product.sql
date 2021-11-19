@@ -294,7 +294,23 @@ ALTER TABLE `catalog_product_bundle_selection_price`
 -- ------------------------------------------------------------------
 -- Update the `entity_id` relation link for catalog product entity --
 -- ------------------------------------------------------------------
+
+-- Force Clean Duplicates (should already be cleaned by the latest active version, see upper)
+
 DELETE FROM catalog_product_entity WHERE row_id NOT IN (SELECT MAX(row_id) FROM catalog_product_entity  GROUP BY entity_id);
+
+-- Clean Invalid Entities (May occurs in some cases)
+
+DELETE FROM `catalog_product_entity` WHERE `entity_id` = 0;
+DELETE FROM `catalog_product_entity_datetime` WHERE `entity_id` = 0;
+DELETE FROM `catalog_product_entity_decimal` WHERE `entity_id` = 0;
+DELETE FROM `catalog_product_entity_gallery` WHERE `entity_id` = 0;
+DELETE FROM `catalog_product_entity_int` WHERE `entity_id` = 0;
+DELETE FROM `catalog_product_entity_media_gallery_value` WHERE `entity_id` = 0;
+DELETE FROM `catalog_product_entity_media_gallery_value_to_entity` WHERE `entity_id` = 0;
+DELETE FROM `catalog_product_entity_text` WHERE `entity_id` = 0;
+DELETE FROM `catalog_product_entity_tier_price` WHERE `entity_id` = 0;
+DELETE FROM `catalog_product_entity_varchar` WHERE `entity_id` = 0;
 
 -- Datetime
 ALTER TABLE `catalog_product_entity_datetime`
