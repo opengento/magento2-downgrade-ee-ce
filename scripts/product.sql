@@ -363,10 +363,6 @@ ALTER TABLE `catalog_product_entity_tier_price`
     ADD CONSTRAINT `UNQ_E8AB433B9ACB00343ABB312AD2FAB087` UNIQUE KEY (`entity_id`,`all_groups`,`customer_group_id`,`qty`,`website_id`),
 	DROP COLUMN `row_id`;
 
---wishlist 
-ALTER TABLE `wishlist`
-	DROP INDEX `WISHLIST_CUSTOMER_ID`;
-
 -- Entity
 SET FOREIGN_KEY_CHECKS = 0;
 ALTER TABLE `catalog_product_entity`
