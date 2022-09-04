@@ -42,9 +42,9 @@ UPDATE `catalog_category_entity_varchar` v INNER JOIN `catalog_category_entity` 
 SET v.`entity_id` = e.`entity_id`
 WHERE 1;
 
--- ----------------
--- Delete entities who are not in catalog_category_entity
--- ----------------
+-- -------------------------------------------------------------------
+-- Delete entities which does not exists in catalog_category_entity --
+-- -------------------------------------------------------------------
 DELETE FROM `catalog_category_entity_datetime` WHERE row_id NOT IN (SELECT MAX(row_id) FROM catalog_category_entity GROUP BY entity_id) ORDER BY `entity_id` ASC;
 
 DELETE FROM `catalog_category_entity_decimal` WHERE row_id NOT IN (SELECT MAX(row_id) FROM catalog_category_entity GROUP BY entity_id) ORDER BY `entity_id` ASC;
