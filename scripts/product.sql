@@ -297,7 +297,9 @@ ALTER TABLE `catalog_product_bundle_selection_price`
 
 -- Force Clean Duplicates (should already be cleaned by the latest active version, see upper)
 
-DELETE FROM catalog_product_entity WHERE row_id NOT IN (SELECT MAX(row_id) FROM catalog_product_entity  GROUP BY entity_id);
+DELETE FROM catalog_product_entity WHERE row_id NOT IN (
+    SELECT tmp_product.row_id FROM (SELECT MAX(row_id) AS row_id FROM catalog_product_entity  GROUP BY entity_id) tmp_product
+);
 
 -- Clean Invalid Entities (May occurs in some cases)
 
