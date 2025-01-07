@@ -1,5 +1,8 @@
-# Migration Tool for Magento Commerce to Magento OpenSource
+# Migration Tool for Adobe Commerce to Magento Open Source
 
+> Also known as Adobe Commerce to Magento Open Source
+> Also known as Adobe Commerce Cloud to Magento Open Source.
+> Also known as Magento Commerce to Magento Open Source.
 > Also known as Magento Enterprise (EE) to Magento Community (CE).
 
 This migrating tool allows to downgrade the database schema without altering the data. The major difference between the
