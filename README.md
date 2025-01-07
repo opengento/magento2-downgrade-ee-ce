@@ -24,6 +24,8 @@ by the tool will remove some specific tables and attributes of the Magento Comme
 > - `database` is your magento database
 > - `script.sql` is the script you want to run from the following list:
 
+You can use the following [sample](./downgrade.sample).
+
 **READY TO USE:**
 
 - [Attributes](./scripts/attributes.sql)
@@ -41,6 +43,7 @@ by the tool will remove some specific tables and attributes of the Magento Comme
 ## Authors
 
 - **Thomas Klein** - *Maintainer* - [![GitHub followers](https://img.shields.io/github/followers/thomas-kl1.svg?style=social)](https://github.com/thomas-kl1)
+- **Contributors** - *Contributor* - [![GitHub contributors](https://img.shields.io/github/contributors/opengento/magento2-downgrade-ee-ce.svg?style=flat-square)](https://github.com/opengento/magento2-downgrade-ee-ce/graphs/contributors)
 
 ## License
 
