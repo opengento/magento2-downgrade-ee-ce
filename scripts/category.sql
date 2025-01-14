@@ -17,10 +17,10 @@ ALTER TABLE `catalog_category_entity_varchar`
 -- Clean duplicates for catalog category entity
 
 DELETE e
-FROM `catalog_product_entity` e
+FROM `catalog_category_entity` e
          LEFT OUTER JOIN (
     SELECT MAX(`updated_in`) as `last_updated_in`, `entity_id`
-    FROM `catalog_product_entity`
+    FROM `catalog_category_entity`
     GROUP BY `entity_id`
 ) AS p
                          ON e.`entity_id` = p.`entity_id` AND e.`updated_in` = p.`last_updated_in`
@@ -58,7 +58,7 @@ DELETE FROM `catalog_category_entity_text` WHERE row_id NOT IN (SELECT MAX(row_i
 DELETE FROM `catalog_category_entity_varchar` WHERE row_id NOT IN (SELECT MAX(row_id) FROM catalog_category_entity GROUP BY entity_id) ORDER BY `entity_id` ASC;
 
 -- ------------------------------------------------------------------
--- Update the `entity_id` relation link for catalog product entity --
+-- Update the `entity_id` relation link for catalog category entity --
 -- ------------------------------------------------------------------
 
 -- Datetime
