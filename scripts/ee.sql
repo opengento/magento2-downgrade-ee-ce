@@ -8,12 +8,6 @@
 
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS
-    `amazon_customer`,
-    `amazon_pending_authorization`,
-    `amazon_pending_capture`,
-    `amazon_pending_refund`,
-    `amazon_quote`,
-    `amazon_sales_order`,
     `catalogpermissions_category_cl`,
     `catalogpermissions_product_cl`,
     `magento_banner`,
