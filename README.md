@@ -35,6 +35,7 @@ You can use the following [sample](./downgrade.sample).
 - [Product](./scripts/product.sql)
 - [CMS](./scripts/cms.sql)
 - [EE Tables](./scripts/ee.sql)
+- [Wishlist](./scripts/wishlist.sql)
 
 ## Similar package
 
