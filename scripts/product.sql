@@ -269,7 +269,7 @@ ALTER TABLE `catalog_product_bundle_option`
     DROP PRIMARY KEY,
     DROP COLUMN `parent_id`,
     CHANGE COLUMN `new_parent_id` `parent_id` INT(10) UNSIGNED NOT NULL COMMENT 'Parent ID',
-    ADD CONSTRAINT `CATALOG_PRODUCT_BUNDLE_OPTION_PARENT_ID` UNIQUE KEY (`parent_id`),
+    ADD INDEX `CATALOG_PRODUCT_BUNDLE_OPTION_PARENT_ID` (`parent_id`),
     MODIFY COLUMN `option_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Option ID',
     ADD PRIMARY KEY (`option_id`);
 
