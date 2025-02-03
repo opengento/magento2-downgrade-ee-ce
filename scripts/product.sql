@@ -244,7 +244,6 @@ ALTER TABLE `downloadable_sample`
 
 ALTER TABLE `catalog_product_bundle_selection_price`
     DROP FOREIGN KEY `CAT_PRD_BNDL_SELECTION_PRICE_PARENT_PRD_ID_CAT_PRD_ENTT_ROW_ID`,
-    DROP FOREIGN KEY `CAT_PRD_BNDL_SELECTION_PRICE_WS_ID_STORE_WS_WS_ID`,
     DROP FOREIGN KEY `FK_AE9FDBF7988FB6BE3E04D91DA2CFB273`,
     DROP PRIMARY KEY,
     DROP COLUMN `parent_product_id`,
@@ -287,8 +286,6 @@ ALTER TABLE `catalog_product_bundle_selection`
     ADD CONSTRAINT `CAT_PRD_BNDL_SELECTION_OPT_ID_CAT_PRD_BNDL_OPT_OPT_ID` FOREIGN KEY (`option_id`) REFERENCES `catalog_product_bundle_option` (`option_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 ALTER TABLE `catalog_product_bundle_selection_price`
-	DROP INDEX `CATALOG_PRODUCT_BUNDLE_SELECTION_PRICE_WEBSITE_ID`,
-    ADD CONSTRAINT `CATALOG_PRODUCT_BUNDLE_SELECTION_PRICE_WEBSITE_ID` FOREIGN KEY (`website_id`) REFERENCES `store_website` (`website_id`) ON DELETE CASCADE ON UPDATE RESTRICT,
     ADD CONSTRAINT `FK_DCF37523AA05D770A70AA4ED7C2616E4` FOREIGN KEY (`selection_id`) REFERENCES `catalog_product_bundle_selection` (`selection_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 -- ------------------------------------------------------------------
