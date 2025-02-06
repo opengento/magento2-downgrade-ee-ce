@@ -11,7 +11,7 @@ by the tool will remove some specific tables and attributes of the Adobe Commerc
 
 **NOTICE**
 - This tool has been initially developed for Magento Commerce 2.2.* version.
-- This tool is working with latest Adobe Commerce 2.4.* (tested with 2.4.7-p3, thanks to this amazing contributor : [https://github.com/LucaGallinari](@LucaGallinari) [![GitHub followers](https://img.shields.io/github/followers/LucaGallinari.svg?style=social)](https://github.com/LucaGallinari) ❤️)
+- This tool is working with latest Adobe Commerce 2.4.* (tested with 2.4.7-p3, thanks to this amazing contributor : [@LucaGallinari](https://github.com/LucaGallinari) [![GitHub followers](https://img.shields.io/github/followers/LucaGallinari.svg?style=social)](https://github.com/LucaGallinari) ❤️)
 
 ## How to use
 
