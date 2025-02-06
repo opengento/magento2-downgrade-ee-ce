@@ -68,6 +68,7 @@ ALTER TABLE `cms_page`
     DROP COLUMN `row_id`,
     DROP COLUMN `created_in`,
     DROP COLUMN `updated_in`,
+    DROP COLUMN `website_root`,
     ADD PRIMARY KEY (`page_id`),
     MODIFY COLUMN `page_id` SMALLINT(6) NOT NULL AUTO_INCREMENT COMMENT 'Entity ID';
 SET FOREIGN_KEY_CHECKS = 1;
