@@ -5,3 +5,8 @@ mysql -u <user> -p<password> <database> < ./scripts/catalogrule.sql
 mysql -u <user> -p<password> <database> < ./scripts/salesrule.sql
 mysql -u <user> -p<password> <database> < ./scripts/category.sql
 mysql -u <user> -p<password> <database> < ./scripts/product.sql
+mysql -u <user> -p<password> <database> < ./scripts/cataloginventory.sql
+mysql -u <user> -p<password> <database> < ./scripts/customer.sql
+mysql -u <user> -p<password> <database> < ./scripts/quote.sql
+mysql -u <user> -p<password> <database> < ./scripts/sales.sql
+mysql -u <user> -p<password> <database> < ./scripts/wishlist.sql
