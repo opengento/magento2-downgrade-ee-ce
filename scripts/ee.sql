@@ -8,13 +8,13 @@
 
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS
-    `magento_acknowledged_bulk`,
+    `catalogpermissions_category_cl`,
+    `catalogpermissions_product_cl`,
     `magento_banner`,
     `magento_banner_catalogrule`,
     `magento_banner_content`,
     `magento_banner_customersegment`,
     `magento_banner_salesrule`,
-    `magento_bulk`,
     `magento_catalogevent_event`,
     `magento_catalogevent_event_image`,
     `magento_catalogpermissions`,
@@ -54,7 +54,6 @@ DROP TABLE IF EXISTS
     `magento_invitation_track`,
     `magento_logging_event`,
     `magento_logging_event_changes`,
-    `magento_operation`,
     `magento_reminder_rule`,
     `magento_reminder_rule_coupon`,
     `magento_reminder_rule_log`,
@@ -97,5 +96,10 @@ DROP TABLE IF EXISTS
     `magento_versionscms_hierarchy_metadata`,
     `magento_versionscms_hierarchy_node`,
     `magento_versionscms_increment`,
+    `staging_update`,
+    `support_backup`,
+    `support_backup_item`,
+    `support_report`,
+    `quote_preview`,
     `visual_merchandiser_rule`;
 SET FOREIGN_KEY_CHECKS = 1;

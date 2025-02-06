@@ -35,6 +35,11 @@ You can use the following [sample](./downgrade.sample).
 - [Product](./scripts/product.sql)
 - [CMS](./scripts/cms.sql)
 - [EE Tables](./scripts/ee.sql)
+- [Wishlist](./scripts/wishlist.sql)
+- [CatalogInventory](./scripts/cataloginventory.sql)
+- [Customer](./scripts/customer.sql)
+- [Quote](./scripts/quote.sql)
+- [Sales](./scripts/sales.sql)
 
 ## Similar package
 

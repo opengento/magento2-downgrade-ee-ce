@@ -1,0 +1,5 @@
+ALTER TABLE `wishlist`
+    DROP COLUMN `name`,
+    DROP COLUMN `visibility`,
+    DROP INDEX WISHLIST_CUSTOMER_ID,
+    ADD CONSTRAINT `WISHLIST_CUSTOMER_ID` UNIQUE KEY (`customer_id`);
