@@ -459,6 +459,7 @@ ALTER TABLE `catalog_product_website`
     DROP FOREIGN KEY `CAT_PRD_WS_PRD_ID_SEQUENCE_PRD_SEQUENCE_VAL`,
     ADD CONSTRAINT `CAT_PRD_WS_PRD_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
+DELETE c.* FROM `catalog_url_rewrite_product_category` c LEFT JOIN catalog_product_entity p ON c.product_id = p.entity_id WHERE p.entity_id IS NULL;
 ALTER TABLE `catalog_url_rewrite_product_category`
     DROP FOREIGN KEY `CAT_URL_REWRITE_PRD_CTGR_PRD_ID_SEQUENCE_PRD_SEQUENCE_VAL`,
     ADD CONSTRAINT `CAT_URL_REWRITE_PRD_CTGR_PRD_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
