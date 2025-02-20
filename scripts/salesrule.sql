@@ -16,13 +16,15 @@ ALTER TABLE `salesrule_website`
     ADD COLUMN `rule_id` INT(10) UNSIGNED NOT NULL COMMENT 'Rule ID';
 ALTER TABLE `salesrule_product_attribute`
     ADD COLUMN `rule_id` INT(10) UNSIGNED NOT NULL COMMENT 'Rule ID';
+ALTER TABLE `salesrule_label`
+    ADD COLUMN `rule_id` INT(10) UNSIGNED NOT NULL COMMENT 'Rule ID';
 
 -- Clean duplicates for salesrule
 
 DELETE e
 FROM `salesrule` e
          LEFT OUTER JOIN (
-    SELECT MAX(`updated_in`) as `last_updated_in`,`rule_id`
+    SELECT MAX(`updated_in`) AS `last_updated_in`,`rule_id`
     FROM `salesrule`
     GROUP BY `rule_id`
 ) AS p
@@ -38,6 +40,9 @@ UPDATE `salesrule_website` v INNER JOIN `salesrule` e ON v.`row_id` = e.`row_id`
 SET v.`rule_id` = e.`rule_id`
 WHERE 1;
 UPDATE `salesrule_product_attribute` v INNER JOIN `salesrule` e ON v.`row_id` = e.`row_id`
+SET v.`rule_id` = e.`rule_id`
+WHERE 1;
+UPDATE `salesrule_label` v INNER JOIN `salesrule` e ON v.`row_id` = e.`row_id`
 SET v.`rule_id` = e.`rule_id`
 WHERE 1;
 
@@ -64,6 +69,13 @@ ALTER TABLE `salesrule_product_attribute`
     DROP FOREIGN KEY `SALESRULE_PRODUCT_ATTRIBUTE_ROW_ID_SALESRULE_ROW_ID`,
     DROP PRIMARY KEY,
     ADD PRIMARY KEY (`rule_id`,`website_id`,`customer_group_id`,`attribute_id`),
+    DROP COLUMN `row_id`;
+
+-- Label Attribute
+ALTER TABLE `salesrule_label`
+    DROP FOREIGN KEY `SALESRULE_LABEL_ROW_ID_SALESRULE_ROW_ID`,
+    DROP PRIMARY KEY,  ADD PRIMARY KEY (`label_id`),
+    DROP KEY `SALESRULE_LABEL_ROW_ID_STORE_ID`, ADD UNIQUE KEY `SALESRULE_LABEL_RULE_ID_STORE_ID` (`rule_id`, `store_id`),
     DROP COLUMN `row_id`;
 
 -- Salesrule
