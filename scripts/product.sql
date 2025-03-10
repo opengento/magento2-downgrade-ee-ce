@@ -351,7 +351,7 @@ ALTER TABLE `catalog_product_entity_media_gallery_value_to_entity`
     DROP FOREIGN KEY `CAT_PRD_ENTT_MDA_GLR_VAL_TO_ENTT_ROW_ID_CAT_PRD_ENTT_ROW_ID`,
     DROP INDEX `CAT_PRD_ENTT_MDA_GLR_VAL_TO_ENTT_ROW_ID_CAT_PRD_ENTT_ROW_ID`,
     ADD CONSTRAINT `CAT_PRD_ENTT_MDA_GLR_VAL_TO_ENTT_VAL_ID_ENTT_ID` UNIQUE KEY (`value_id`,`entity_id`),
-    DROP KEY CAT_PRD_ENTT_MDA_GLR_VAL_TO_ENTT_VAL_ID_ROW_ID,
+    DROP PRIMARY KEY,
     ADD PRIMARY KEY (`value_id`,`entity_id`),
     DROP COLUMN `row_id`;
 
@@ -459,6 +459,7 @@ ALTER TABLE `catalog_product_website`
     DROP FOREIGN KEY `CAT_PRD_WS_PRD_ID_SEQUENCE_PRD_SEQUENCE_VAL`,
     ADD CONSTRAINT `CAT_PRD_WS_PRD_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
+DELETE c.* FROM `catalog_url_rewrite_product_category` c LEFT JOIN catalog_product_entity p ON c.product_id = p.entity_id WHERE p.entity_id IS NULL;
 ALTER TABLE `catalog_url_rewrite_product_category`
     DROP FOREIGN KEY `CAT_URL_REWRITE_PRD_CTGR_PRD_ID_SEQUENCE_PRD_SEQUENCE_VAL`,
     ADD CONSTRAINT `CAT_URL_REWRITE_PRD_CTGR_PRD_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
