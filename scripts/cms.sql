@@ -1,3 +1,5 @@
+update cms_page set creation_time = update_time WHERE `creation_time` LIKE '%0000%';
+
 -- Enable `block_id` for block store
 ALTER TABLE `cms_block_store`
     ADD COLUMN `block_id` SMALLINT(6) NOT NULL COMMENT 'Entity ID';

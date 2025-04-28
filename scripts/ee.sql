@@ -7,6 +7,15 @@
 -- ------------------------------------------------------ --
 
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- Clean up RMA & Gift Registry table
+ALTER TABLE `magento_rma_item_entity`
+    DROP FOREIGN KEY `MAGENTO_RMA_ITEM_ENTITY_RMA_ENTITY_ID_MAGENTO_RMA_ENTITY_ID`;
+ALTER TABLE `magento_giftregistry_entity`
+    DROP FOREIGN KEY `FK_AC6F6DB40013C09CA44DFBC3453C4954`;
+ALTER TABLE `magento_giftregistry_item`
+    DROP FOREIGN KEY `FK_BAC522E38736441C84A365FDA8A89F3D`;
+
 DROP TABLE IF EXISTS
     `magento_acknowledged_bulk`,
     `magento_banner`,

@@ -67,6 +67,25 @@ ALTER TABLE `salesrule_product_attribute`
     DROP COLUMN `row_id`;
 
 -- Salesrule
+
+
+ALTER TABLE `amasty_ampromo_rule`
+    DROP FOREIGN KEY `AMASTY_AMPROMO_RULE_SALESRULE_ID_SALESRULE_ROW_ID`;
+ALTER TABLE `amasty_amrules_rule`
+    DROP FOREIGN KEY `AMASTY_AMRULES_RULE_SALESRULE_ID_SALESRULE_ROW_ID`;
+ALTER TABLE `amasty_amrules_usage_limit`
+    DROP FOREIGN KEY `AMASTY_AMRULES_USAGE_LIMIT_SALESRULE_ID_SALESRULE_ROW_ID`;
+ALTER TABLE `salesrule_label`
+    DROP FOREIGN KEY `SALESRULE_LABEL_ROW_ID_SALESRULE_ROW_ID`;
+ALTER TABLE `amasty_free_gift_timer_timer_data`
+    DROP FOREIGN KEY `AMASTY_FREE_GIFT_TIMER_TIMER_DATA_SALESRULE_ID_SALESRULE_ROW_ID`;
+ALTER TABLE `amasty_amrules_usage_counter`
+    DROP FOREIGN KEY `AMASTY_AMRULES_USAGE_COUNTER_SALESRULE_ID_SALESRULE_RULE_ID`;
+ALTER TABLE `amasty_banners_lite_banner_data`
+    DROP FOREIGN KEY `AMASTY_BANNERS_LITE_BANNER_DATA_SALESRULE_ID_SALESRULE_ROW_ID`;
+ALTER TABLE `amasty_banners_lite_rule`
+    DROP FOREIGN KEY `AMASTY_BANNERS_LITE_RULE_SALESRULE_ID_SALESRULE_ROW_ID`;
+
 ALTER TABLE `salesrule`
     DROP FOREIGN KEY `SALESRULE_RULE_ID_SEQUENCE_SALESRULE_SEQUENCE_VALUE`,
     DROP COLUMN `row_id`,
@@ -86,6 +105,9 @@ ALTER TABLE `salesrule_product_attribute`
 -- ----------------
 -- Drop sequence --
 -- ----------------
+-- We need to clean up the salesrule_coupon table before dropping the sequence_salesrule table
+DELETE FROM salesrule_coupon
+    WHERE rule_id NOT IN (SELECT rule_id FROM salesrule);
 
 ALTER TABLE `salesrule_coupon`
     DROP FOREIGN KEY `SALESRULE_COUPON_RULE_ID_SEQUENCE_SALESRULE_SEQUENCE_VALUE`,
@@ -93,8 +115,14 @@ ALTER TABLE `salesrule_coupon`
 ALTER TABLE `salesrule_customer`
     DROP FOREIGN KEY `SALESRULE_CUSTOMER_RULE_ID_SEQUENCE_SALESRULE_SEQUENCE_VALUE`,
     ADD CONSTRAINT `SALESRULE_CUSTOMER_RULE_ID_SALESRULE_RULE_ID` FOREIGN KEY (`rule_id`) REFERENCES `salesrule` (`rule_id`);
+
 ALTER TABLE `salesrule_label`
-    DROP FOREIGN KEY `SALESRULE_LABEL_RULE_ID_SEQUENCE_SALESRULE_SEQUENCE_VALUE`,
+    CHANGE `row_id` `rule_id` INT(10) UNSIGNED NOT NULL COMMENT 'Rule ID';
+
+DELETE FROM salesrule_label
+    WHERE rule_id NOT IN (SELECT rule_id FROM salesrule);
+
+ALTER TABLE `salesrule_label`
     ADD CONSTRAINT `SALESRULE_LABEL_RULE_ID_SALESRULE_RULE_ID` FOREIGN KEY (`rule_id`) REFERENCES `salesrule` (`rule_id`);
 
 DROP TABLE `sequence_salesrule`;

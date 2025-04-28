@@ -62,5 +62,7 @@ ALTER TABLE `catalogrule_website`
 -- ----------------
 -- Drop sequence --
 -- ----------------
+ALTER TABLE `magento_banner_catalogrule`
+    DROP FOREIGN KEY `MAGENTO_BANNER_CATRULE_RULE_ID_SEQUENCE_CATRULE_SEQUENCE_VAL`;
 
 DROP TABLE `sequence_catalogrule`;
