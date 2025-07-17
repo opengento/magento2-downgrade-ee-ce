@@ -15,6 +15,8 @@ by the tool will remove some specific tables and attributes of the Adobe Commerc
 
 ## How to use
 
+Before migrating, change your indexer mode to manual, so the triggers are safely removed. You will be able to change back to scheduled after the migration has been done.
+
 `mysql -u <user> <database> < <script.sql>`
 
 > Where :
