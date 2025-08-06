@@ -23,7 +23,7 @@ ALTER TABLE `salesrule_label`
 
 DELETE e
 FROM `salesrule` e
-WHERE e.created_in <= UNIX_TIMESTAMP() AND e.updated_in > UNIX_TIMESTAMP();
+WHERE e.created_in > UNIX_TIMESTAMP() OR e.updated_in <= UNIX_TIMESTAMP();
 UPDATE `salesrule`
 SET
     from_date=IF(created_in = 1, from_date, DATE(FROM_UNIXTIME(created_in))),
