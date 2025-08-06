@@ -9,13 +9,12 @@ ALTER TABLE `catalogrule_website`
 
 DELETE e
 FROM `catalogrule` e
-         LEFT OUTER JOIN (
-    SELECT MAX(`updated_in`) as `last_updated_in`, `rule_id`
-    FROM `catalogrule`
-    GROUP BY `rule_id`
-) AS p
-                         ON e.`rule_id` = p.`rule_id` AND e.`updated_in` = p.`last_updated_in`
-WHERE p.`last_updated_in` IS NULL;
+WHERE e.created_in > UNIX_TIMESTAMP() OR e.updated_in <= UNIX_TIMESTAMP();
+UPDATE `catalogrule`
+SET
+    from_date=IF(created_in = 1, from_date, DATE(FROM_UNIXTIME(created_in))),
+    to_date=IF(updated_in = 2147483647, to_date, DATE(FROM_UNIXTIME(updated_in)))
+WHERE rule_id=rule_id;
 
 -- Populate `rule_id` column for catalogrule
 
