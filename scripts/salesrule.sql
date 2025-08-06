@@ -23,13 +23,12 @@ ALTER TABLE `salesrule_label`
 
 DELETE e
 FROM `salesrule` e
-         LEFT OUTER JOIN (
-    SELECT MAX(`updated_in`) AS `last_updated_in`,`rule_id`
-    FROM `salesrule`
-    GROUP BY `rule_id`
-) AS p
-                         ON e.`rule_id` = p.`rule_id` AND e.`updated_in` = p.`last_updated_in`
-WHERE p.`last_updated_in` IS NULL;
+WHERE e.created_in <= UNIX_TIMESTAMP() AND e.updated_in > UNIX_TIMESTAMP();
+UPDATE `salesrule`
+SET
+    from_date=IF(created_in = 1, from_date, DATE(FROM_UNIXTIME(created_in))),
+    to_date=IF(updated_in = 2147483647, to_date, DATE(FROM_UNIXTIME(updated_in)))
+WHERE rule_id=rule_id;
 
 -- Populate `rule_id` column for salesrule
 
