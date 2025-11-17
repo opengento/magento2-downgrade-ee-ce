@@ -248,7 +248,8 @@ ALTER TABLE `catalog_product_bundle_selection_price`
     DROP PRIMARY KEY,
     DROP COLUMN `parent_product_id`,
     CHANGE COLUMN `new_parent_product_id` `parent_product_id` INT(10) UNSIGNED NOT NULL COMMENT 'Parent Product ID',
-    ADD PRIMARY KEY (`selection_id`,`parent_product_id`,`website_id`);
+    ADD PRIMARY KEY (`selection_id`,`parent_product_id`,`website_id`),
+    ADD INDEX CAT_PRD_SELECTION_PRICE_PARENT_PRD_ID_CAT_PRD_ENTT_ID (parent_product_id);
 
 ALTER TABLE `catalog_product_bundle_selection`
     DROP FOREIGN KEY `CAT_PRD_BNDL_SELECTION_OPT_ID_SEQUENCE_PRD_BNDL_OPT_SEQUENCE_VAL`,
@@ -259,7 +260,8 @@ ALTER TABLE `catalog_product_bundle_selection`
     DROP COLUMN `parent_product_id`,
     CHANGE COLUMN `new_parent_product_id` `parent_product_id` INT(10) UNSIGNED NOT NULL COMMENT 'Parent Product ID',
     MODIFY COLUMN `selection_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Selection ID',
-    ADD PRIMARY KEY (`selection_id`);
+    ADD PRIMARY KEY (`selection_id`),
+    ADD INDEX CAT_PRD_SELECTION_PARENT_PRD_ID_CAT_PRD_ENTT_ID (parent_product_id);
 
 ALTER TABLE `catalog_product_bundle_option`
     DROP FOREIGN KEY `CAT_PRD_BNDL_OPT_OPT_ID_SEQUENCE_PRD_BNDL_OPT_SEQUENCE_VAL`,
