@@ -1,3 +1,8 @@
+--
+-- 04_catalogrule.sql
+-- 
+
+
 -- Enable `rule_id` column for catalogrule
 
 ALTER TABLE `catalogrule_customer_group`
@@ -61,5 +66,7 @@ ALTER TABLE `catalogrule_website`
 -- ----------------
 -- Drop sequence --
 -- ----------------
+-- ALTER TABLE `magento_banner_catalogrule`
+--     DROP FOREIGN KEY `MAGENTO_BANNER_CATRULE_RULE_ID_SEQUENCE_CATRULE_SEQUENCE_VAL`;
 
-DROP TABLE `sequence_catalogrule`;
+DROP TABLE IF EXISTS `sequence_catalogrule`;

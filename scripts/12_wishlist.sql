@@ -1,3 +1,7 @@
+--
+-- 12_wishlist.sql
+-- 
+
 ALTER TABLE `wishlist`
     DROP COLUMN `name`,
     DROP COLUMN `visibility`,

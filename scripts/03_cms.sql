@@ -1,3 +1,9 @@
+--
+-- 03_cms.sql
+-- 
+
+update cms_page set creation_time = update_time WHERE `creation_time` LIKE '%0000%';
+
 -- Enable `block_id` for block store
 ALTER TABLE `cms_block_store`
     ADD COLUMN `block_id` SMALLINT(6) NOT NULL COMMENT 'Entity ID';
@@ -54,6 +60,9 @@ ALTER TABLE `cms_block`
     ADD PRIMARY KEY (`block_id`),
     MODIFY COLUMN `block_id` SMALLINT(6) NOT NULL AUTO_INCREMENT COMMENT 'Entity ID';
 SET FOREIGN_KEY_CHECKS = 1;
+
+-- Clean up any pages we couldn't re-key
+DELETE FROM cms_page_store WHERE page_id = 0;
 
 -- Update the `page_id` relation link for page store
 ALTER TABLE `cms_page_store`

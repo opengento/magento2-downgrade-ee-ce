@@ -1,3 +1,7 @@
+--
+-- 09_customer.sql
+-- 
+
 ALTER TABLE `customer_eav_attribute`
     DROP COLUMN `is_used_for_customer_segment`;
 

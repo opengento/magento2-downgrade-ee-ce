@@ -1,3 +1,31 @@
+--
+-- 07_product.sql
+-- 
+
+--
+-- This procedure will give you the ability to drop a foreign key if it exists which MySQL/MariaDB can't do on its own.
+-- Taken from: https://stackoverflow.com/questions/17161496/drop-foreign-key-only-if-it-exists
+--
+DROP PROCEDURE IF EXISTS PROC_DROP_FOREIGN_KEY;
+DELIMITER $$
+CREATE PROCEDURE PROC_DROP_FOREIGN_KEY(IN tableName VARCHAR(64), IN constraintName VARCHAR(64))
+BEGIN
+    IF EXISTS(
+        SELECT * FROM information_schema.table_constraints
+        WHERE 
+            table_schema    = DATABASE()     AND
+            table_name      = tableName      AND
+            constraint_name = constraintName AND
+            constraint_type = 'FOREIGN KEY')
+    THEN
+        SET @query = CONCAT('ALTER TABLE ', tableName, ' DROP FOREIGN KEY ', constraintName, ';');
+        PREPARE stmt FROM @query; 
+        EXECUTE stmt; 
+        DEALLOCATE PREPARE stmt; 
+    END IF; 
+END$$
+DELIMITER ;
+
 -- Enable `entity_id` column for catalog product entity
 
 ALTER TABLE `catalog_product_entity_datetime`
@@ -288,6 +316,8 @@ ALTER TABLE `catalog_product_bundle_selection`
     ADD CONSTRAINT `CAT_PRD_BNDL_SELECTION_OPT_ID_CAT_PRD_BNDL_OPT_OPT_ID` FOREIGN KEY (`option_id`) REFERENCES `catalog_product_bundle_option` (`option_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 ALTER TABLE `catalog_product_bundle_selection_price`
+-- 	DROP INDEX `CATALOG_PRODUCT_BUNDLE_SELECTION_PRICE_WEBSITE_ID`, -- we do not need to remove this index
+--     ADD CONSTRAINT `CATALOG_PRODUCT_BUNDLE_SELECTION_PRICE_WEBSITE_ID` FOREIGN KEY (`website_id`) REFERENCES `store_website` (`website_id`) ON DELETE CASCADE ON UPDATE RESTRICT,
     ADD CONSTRAINT `FK_DCF37523AA05D770A70AA4ED7C2616E4` FOREIGN KEY (`selection_id`) REFERENCES `catalog_product_bundle_selection` (`selection_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 -- ------------------------------------------------------------------
@@ -352,18 +382,18 @@ ALTER TABLE `catalog_product_entity_varchar`
 ALTER TABLE `catalog_product_entity_media_gallery_value_to_entity`
     DROP FOREIGN KEY `CAT_PRD_ENTT_MDA_GLR_VAL_TO_ENTT_ROW_ID_CAT_PRD_ENTT_ROW_ID`,
     DROP INDEX `CAT_PRD_ENTT_MDA_GLR_VAL_TO_ENTT_ROW_ID_CAT_PRD_ENTT_ROW_ID`,
-    ADD CONSTRAINT `CAT_PRD_ENTT_MDA_GLR_VAL_TO_ENTT_VAL_ID_ENTT_ID` UNIQUE KEY (`value_id`,`entity_id`),
     DROP PRIMARY KEY,
-    ADD PRIMARY KEY (`value_id`,`entity_id`),
-    DROP COLUMN `row_id`;
+    DROP COLUMN `row_id`,
+    ADD PRIMARY KEY (`value_id`, `entity_id`),
+    ADD CONSTRAINT `CAT_PRD_ENTT_MDA_GLR_VAL_TO_ENTT_VAL_ID_ENTT_ID` UNIQUE KEY (`value_id`,`entity_id`);
 
 -- Gallery value
 ALTER TABLE `catalog_product_entity_media_gallery_value`
     DROP FOREIGN KEY `CAT_PRD_ENTT_MDA_GLR_VAL_ROW_ID_CAT_PRD_ENTT_ROW_ID`,
     DROP INDEX `CATALOG_PRODUCT_ENTITY_MEDIA_GALLERY_VALUE_ROW_ID`,
-    DROP INDEX `CAT_PRD_ENTT_MDA_GLR_VAL_ROW_ID_VAL_ID_STORE_ID`,
+	DROP INDEX `CAT_PRD_ENTT_MDA_GLR_VAL_ROW_ID_VAL_ID_STORE_ID`,
     ADD INDEX `CATALOG_PRODUCT_ENTITY_MEDIA_GALLERY_VALUE_ENTITY_ID` (`entity_id`),
-    ADD CONSTRAINT `CAT_PRD_ENTT_MDA_GLR_VAL_ENTT_ID_VAL_ID_STORE_ID` UNIQUE KEY (`entity_id`,`value_id`,`store_id`),
+    ADD INDEX `CAT_PRD_ENTT_MDA_GLR_VAL_ENTT_ID_VAL_ID_STORE_ID` (`entity_id`,`value_id`,`store_id`),
 	DROP COLUMN `row_id`;
 
 -- Gallery
@@ -382,7 +412,8 @@ ALTER TABLE `catalog_product_entity_tier_price`
     ADD CONSTRAINT `UNQ_E8AB433B9ACB00343ABB312AD2FAB087` UNIQUE KEY (`entity_id`,`all_groups`,`customer_group_id`,`qty`,`website_id`),
 	DROP COLUMN `row_id`;
 
--- Entity
+-- Entity  For some reason, FOREIGN KEY `CAT_PRD_SPR_ATTR_PRD_ID_CAT_PRD_ENTT_ROW_ID was not removed. We need to run it again.
+	     -- ALTER TABLE `catalog_product_super_attribute` DROP FOREIGN KEY `CAT_PRD_SPR_ATTR_PRD_ID_CAT_PRD_ENTT_ROW_ID`;
 SET FOREIGN_KEY_CHECKS = 0;
 ALTER TABLE `catalog_product_entity`
     DROP INDEX `CATALOG_PRODUCT_ENTITY_ENTITY_ID_CREATED_IN_UPDATED_IN`,
@@ -464,11 +495,13 @@ ALTER TABLE `catalog_product_website`
 DELETE c.* FROM `catalog_url_rewrite_product_category` c LEFT JOIN catalog_product_entity p ON c.product_id = p.entity_id WHERE p.entity_id IS NULL;
 ALTER TABLE `catalog_url_rewrite_product_category`
     DROP FOREIGN KEY `CAT_URL_REWRITE_PRD_CTGR_PRD_ID_SEQUENCE_PRD_SEQUENCE_VAL`,
+--     DROP FOREIGN KEY `FK_BB79E64705D7F17FE181F23144528FC8`, -- maybe we have to remove this key instead of the previous one
     ADD CONSTRAINT `CAT_URL_REWRITE_PRD_CTGR_PRD_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 DELETE FROM `cataloginventory_stock_item` WHERE `product_id` NOT IN (SELECT `entity_id` FROM `catalog_product_entity`);
 ALTER TABLE `cataloginventory_stock_item`
     DROP FOREIGN KEY `CATINV_STOCK_ITEM_PRD_ID_SEQUENCE_PRD_SEQUENCE_VAL`,
+--     DROP FOREIGN KEY `CATINV_STOCK_ITEM_STOCK_ID_CATINV_STOCK_STOCK_ID`, -- maybe we have to remove this key instead of the previous one
     ADD CONSTRAINT `CATINV_STOCK_ITEM_PRD_ID_CAT_PRD_ENTT_ENTT_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 ALTER TABLE `product_alert_price`
@@ -506,5 +539,11 @@ ALTER TABLE `weee_tax`
 ALTER TABLE `wishlist_item`
     DROP FOREIGN KEY `WISHLIST_ITEM_PRODUCT_ID_SEQUENCE_PRODUCT_SEQUENCE_VALUE`,
     ADD CONSTRAINT `WISHLIST_ITEM_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+-- DROP FOREIGN KEY on the sequence table
+
+CALL PROC_DROP_FOREIGN_KEY("magento_targetrule_product", "MAGENTO_TARGETRULE_PRD_PRD_ID_SEQUENCE_PRD_SEQUENCE_VAL");
+CALL PROC_DROP_FOREIGN_KEY("email_catalog", "EMAIL_CATALOG_PRODUCT_ID_SEQUENCE_PRODUCT_SEQUENCE_VALUE");
+CALL PROC_DROP_FOREIGN_KEY("magento_giftregistry_item", "MAGENTO_GIFTREGISTRY_ITEM_PRD_ID_SEQUENCE_PRD_SEQUENCE_VAL");
 
 DROP TABLE `sequence_product_bundle_selection`,`sequence_product_bundle_option`,`sequence_product`;

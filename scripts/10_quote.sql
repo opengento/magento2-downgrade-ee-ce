@@ -1,3 +1,8 @@
+--
+-- 10_quote.sql
+-- 
+
+
 # These columns are add by these three EE modules: Magento_CustomerBalance, Magento_GiftCardAccount and Magento_GiftRegistry
 ALTER TABLE `quote`
     DROP COLUMN `customer_balance_amount_used`,

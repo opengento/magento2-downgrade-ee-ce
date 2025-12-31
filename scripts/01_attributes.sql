@@ -1,3 +1,7 @@
+--
+-- 01_attributes.sql
+-- 
+
 -- Remove EE attributes
 
 DELETE

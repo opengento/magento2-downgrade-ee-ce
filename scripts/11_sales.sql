@@ -1,3 +1,7 @@
+--
+-- 11_sales.sql
+-- 
+
 # These columns are add by these three EE modules: Magento_CustomerBalance, Magento_GiftCardAccount and Magento_GiftRegistry
 ALTER TABLE `sales_order`
     DROP COLUMN `base_customer_balance_amount`,

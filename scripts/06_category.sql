@@ -1,3 +1,7 @@
+--
+-- 06_category.sql
+-- 
+
 -- Enable `entity_id` column for catalog category entity
 DELETE FROM catalog_category_entity WHERE row_id NOT IN (
     SELECT tmp_category.row_id FROM (SELECT MAX(row_id) AS row_id FROM catalog_category_entity GROUP BY entity_id) tmp_category
@@ -19,12 +23,12 @@ ALTER TABLE `catalog_category_entity_varchar`
 DELETE e
 FROM `catalog_category_entity` e
          LEFT OUTER JOIN (
-    SELECT MAX(`updated_in`) as `last_updated_in`, `entity_id`
+    SELECT MAX(`updated_at`) as `last_updated_at`, `entity_id`
     FROM `catalog_category_entity`
     GROUP BY `entity_id`
 ) AS p
-                         ON e.`entity_id` = p.`entity_id` AND e.`updated_in` = p.`last_updated_in`
-WHERE p.`last_updated_in` IS NULL;
+                         ON e.`entity_id` = p.`entity_id` AND e.`updated_at` = p.`last_updated_at`
+WHERE p.`last_updated_at` IS NULL;
 
 -- Populate `entity_id` column for catalog category entity
 
@@ -131,4 +135,15 @@ ALTER TABLE `catalog_url_rewrite_product_category`
     DROP FOREIGN KEY `CAT_URL_REWRITE_PRD_CTGR_CTGR_ID_SEQUENCE_CAT_CTGR_SEQUENCE_VAL`,
     ADD CONSTRAINT `CAT_URL_REWRITE_PRD_CTGR_CTGR_ID_CAT_CTGR_ENTT_ENTT_ID` FOREIGN KEY (`category_id`) REFERENCES `catalog_category_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
-DROP TABLE `sequence_catalog_category`;
+--
+-- These are already removed by 02_ee.sql
+--
+-- ALTER TABLE `magento_catalogevent_event`
+--     DROP FOREIGN KEY `MAGENTO_CATEVENT_EVENT_CTGR_ID_SEQUENCE_CAT_CTGR_SEQUENCE_VAL`;
+-- ALTER TABLE `magento_catalogpermissions`
+--     DROP FOREIGN KEY `MAGENTO_CATPERMISSIONS_CTGR_ID_SEQUENCE_CAT_CTGR_SEQUENCE_VAL`;
+-- ALTER TABLE `visual_merchandiser_rule`
+--     DROP FOREIGN KEY `VISUAL_MERCHANDISER_RULE_CTGR_ID_SEQUENCE_CAT_CTGR_SEQUENCE_VAL`;
+--
+
+DROP TABLE IF EXISTS `sequence_catalog_category`;
