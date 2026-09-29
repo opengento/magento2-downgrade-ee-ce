@@ -10,6 +10,8 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS
     `catalogpermissions_category_cl`,
     `catalogpermissions_product_cl`,
+    `event_data`,
+    `event_provider`,
     `magento_banner`,
     `magento_banner_catalogrule`,
     `magento_banner_content`,
