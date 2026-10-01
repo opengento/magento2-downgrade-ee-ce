@@ -10,6 +10,8 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS
     `catalogpermissions_category_cl`,
     `catalogpermissions_product_cl`,
+    `event_data`,
+    `event_provider`,
     `magento_banner`,
     `magento_banner_catalogrule`,
     `magento_banner_content`,
@@ -103,3 +105,8 @@ DROP TABLE IF EXISTS
     `quote_preview`,
     `visual_merchandiser_rule`;
 SET FOREIGN_KEY_CHECKS = 1;
+
+ALTER TABLE `authorization_role`
+    DROP COLUMN `gws_is_all`,
+    DROP COLUMN `gws_websites`,
+    DROP COLUMN `gws_store_groups`;
