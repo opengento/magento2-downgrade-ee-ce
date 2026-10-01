@@ -1,5 +1,4 @@
 mysql -u <user> -p<password> <database> < ./scripts/attributes.sql
-mysql -u <user> -p<password> <database> < ./scripts/authorization.sql
 mysql -u <user> -p<password> <database> < ./scripts/ee.sql
 mysql -u <user> -p<password> <database> < ./scripts/cms.sql
 mysql -u <user> -p<password> <database> < ./scripts/catalogrule.sql

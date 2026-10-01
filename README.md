@@ -30,7 +30,6 @@ You can use the following [sample](./downgrade.sample).
 **READY TO USE:**
 
 - [Attributes](./scripts/attributes.sql)
-- [Authorization](./scripts/authorization.sql)
 - [SalesRule](./scripts/salesrule.sql)
 - [CatalogRule](./scripts/catalogrule.sql)
 - [Category](./scripts/category.sql)
