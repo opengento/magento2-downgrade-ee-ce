@@ -1,4 +1,4 @@
-# These columns are add by these three EE modules: Magento_CustomerBalance, Magento_GiftCardAccount and Magento_GiftRegistry
+# These columns are add by these EE modules: Magento_CustomerBalance, Magento_GiftCardAccount, Magento_GiftRegistry, Magento_Reward and Magento_GiftWrapping
 ALTER TABLE `sales_order`
     DROP COLUMN `base_customer_balance_amount`,
     DROP COLUMN `customer_balance_amount`,
@@ -24,12 +24,72 @@ ALTER TABLE `sales_order`
     DROP COLUMN `rwrd_currency_amount_invoiced`,
     DROP COLUMN `base_rwrd_crrncy_amnt_refnded`,
     DROP COLUMN `rwrd_crrncy_amnt_refunded`,
-    DROP COLUMN `reward_points_balance_refund`;
+    DROP COLUMN `reward_points_balance_refund`,
+
+    DROP COLUMN `gw_id`,
+    DROP COLUMN `gw_allow_gift_receipt`,
+    DROP COLUMN `gw_add_card`,
+    DROP COLUMN `gw_base_price`,
+    DROP COLUMN `gw_price`,
+    DROP COLUMN `gw_items_base_price`,
+    DROP COLUMN `gw_items_price`,
+    DROP COLUMN `gw_card_base_price`,
+    DROP COLUMN `gw_card_price`,
+    DROP COLUMN `gw_base_tax_amount`,
+    DROP COLUMN `gw_tax_amount`,
+    DROP COLUMN `gw_items_base_tax_amount`,
+    DROP COLUMN `gw_items_tax_amount`,
+    DROP COLUMN `gw_card_base_tax_amount`,
+    DROP COLUMN `gw_card_tax_amount`,
+    DROP COLUMN `gw_base_price_incl_tax`,
+    DROP COLUMN `gw_price_incl_tax`,
+    DROP COLUMN `gw_items_base_price_incl_tax`,
+    DROP COLUMN `gw_items_price_incl_tax`,
+    DROP COLUMN `gw_card_base_price_incl_tax`,
+    DROP COLUMN `gw_card_price_incl_tax`,
+    DROP COLUMN `gw_base_price_invoiced`,
+    DROP COLUMN `gw_price_invoiced`,
+    DROP COLUMN `gw_items_base_price_invoiced`,
+    DROP COLUMN `gw_items_price_invoiced`,
+    DROP COLUMN `gw_card_base_price_invoiced`,
+    DROP COLUMN `gw_card_price_invoiced`,
+    DROP COLUMN `gw_base_tax_amount_invoiced`,
+    DROP COLUMN `gw_tax_amount_invoiced`,
+    DROP COLUMN `gw_items_base_tax_invoiced`,
+    DROP COLUMN `gw_items_tax_invoiced`,
+    DROP COLUMN `gw_card_base_tax_invoiced`,
+    DROP COLUMN `gw_card_tax_invoiced`,
+    DROP COLUMN `gw_base_price_refunded`,
+    DROP COLUMN `gw_price_refunded`,
+    DROP COLUMN `gw_items_base_price_refunded`,
+    DROP COLUMN `gw_items_price_refunded`,
+    DROP COLUMN `gw_card_base_price_refunded`,
+    DROP COLUMN `gw_card_price_refunded`,
+    DROP COLUMN `gw_base_tax_amount_refunded`,
+    DROP COLUMN `gw_tax_amount_refunded`,
+    DROP COLUMN `gw_items_base_tax_refunded`,
+    DROP COLUMN `gw_items_tax_refunded`,
+    DROP COLUMN `gw_card_base_tax_refunded`,
+    DROP COLUMN `gw_card_tax_refunded`;
 
 ALTER TABLE `sales_order_item`
     DROP COLUMN `giftregistry_item_id`,
     DROP COLUMN `event_id`,
-    DROP COLUMN `qty_returned`;
+    DROP COLUMN `qty_returned`,
+
+    DROP COLUMN `gw_id`,
+    DROP COLUMN `gw_base_price`,
+    DROP COLUMN `gw_price`,
+    DROP COLUMN `gw_base_tax_amount`,
+    DROP COLUMN `gw_tax_amount`,
+    DROP COLUMN `gw_base_price_invoiced`,
+    DROP COLUMN `gw_price_invoiced`,
+    DROP COLUMN `gw_base_tax_amount_invoiced`,
+    DROP COLUMN `gw_tax_amount_invoiced`,
+    DROP COLUMN `gw_base_price_refunded`,
+    DROP COLUMN `gw_price_refunded`,
+    DROP COLUMN `gw_base_tax_amount_refunded`,
+    DROP COLUMN `gw_tax_amount_refunded`;
 
 ALTER TABLE `sales_order_address`
     DROP COLUMN `giftregistry_item_id`;
@@ -43,7 +103,20 @@ ALTER TABLE `sales_invoice`
 
     DROP COLUMN `base_reward_currency_amount`,
     DROP COLUMN `reward_currency_amount`,
-    DROP COLUMN `reward_points_balance`;
+    DROP COLUMN `reward_points_balance`,
+
+    DROP COLUMN `gw_base_price`,
+    DROP COLUMN `gw_price`,
+    DROP COLUMN `gw_items_base_price`,
+    DROP COLUMN `gw_items_price`,
+    DROP COLUMN `gw_card_base_price`,
+    DROP COLUMN `gw_card_price`,
+    DROP COLUMN `gw_base_tax_amount`,
+    DROP COLUMN `gw_tax_amount`,
+    DROP COLUMN `gw_items_base_tax_amount`,
+    DROP COLUMN `gw_items_tax_amount`,
+    DROP COLUMN `gw_card_base_tax_amount`,
+    DROP COLUMN `gw_card_tax_amount`;
 
 ALTER TABLE `sales_creditmemo`
     DROP COLUMN `base_customer_balance_amount`,
@@ -57,7 +130,20 @@ ALTER TABLE `sales_creditmemo`
     DROP COLUMN `base_reward_currency_amount`,
     DROP COLUMN `reward_currency_amount`,
     DROP COLUMN `reward_points_balance`,
-    DROP COLUMN `reward_points_balance_refund`;
+    DROP COLUMN `reward_points_balance_refund`,
+
+    DROP COLUMN `gw_base_price`,
+    DROP COLUMN `gw_price`,
+    DROP COLUMN `gw_items_base_price`,
+    DROP COLUMN `gw_items_price`,
+    DROP COLUMN `gw_card_base_price`,
+    DROP COLUMN `gw_card_price`,
+    DROP COLUMN `gw_base_tax_amount`,
+    DROP COLUMN `gw_tax_amount`,
+    DROP COLUMN `gw_items_base_tax_amount`,
+    DROP COLUMN `gw_items_tax_amount`,
+    DROP COLUMN `gw_card_base_tax_amount`,
+    DROP COLUMN `gw_card_tax_amount`;
 
 ALTER TABLE `sales_order_grid`
     DROP COLUMN `refunded_to_store_credit`;
