@@ -1,3 +1,4 @@
+mysql -u <user> -p<password> <database> < ./scripts/preflight.sql
 mysql -u <user> -p<password> <database> < ./scripts/attributes.sql
 mysql -u <user> -p<password> <database> < ./scripts/authorization.sql
 mysql -u <user> -p<password> <database> < ./scripts/ee.sql

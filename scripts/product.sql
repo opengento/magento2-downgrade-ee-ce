@@ -62,17 +62,10 @@ ALTER TABLE `catalog_product_super_attribute`
 ALTER TABLE `catalog_product_super_link`
     ADD COLUMN `new_parent_id` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'Parent ID';
 
--- Clean duplicate for catalog product entity
+-- Keep only the version active now (staging versions are contiguous, exactly one matches)
 
-DELETE e
-FROM `catalog_product_entity` e
-         LEFT OUTER JOIN (
-    SELECT MAX(`updated_in`) as `last_updated_in`, `entity_id`
-    FROM `catalog_product_entity`
-    GROUP BY `entity_id`
-) AS p
-                         ON e.`entity_id` = p.`entity_id` AND e.`updated_in` = p.`last_updated_in`
-WHERE p.`last_updated_in` IS NULL;
+DELETE FROM `catalog_product_entity`
+WHERE `created_in` > UNIX_TIMESTAMP() OR `updated_in` <= UNIX_TIMESTAMP();
 
 -- Populate `entity_id` column for catalog product entity
 
@@ -169,7 +162,7 @@ ALTER TABLE `catalog_product_super_link`
     DROP INDEX `CATALOG_PRODUCT_SUPER_LINK_PRODUCT_ID_PARENT_ID`,
     DROP COLUMN `parent_id`,
     CHANGE COLUMN `new_parent_id` `parent_id` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'Parent ID',
-    ADD INDEX `CATALOG_PRODUCT_SUPER_LINK_PARENT_ID` (`product_id`),
+    ADD INDEX `CATALOG_PRODUCT_SUPER_LINK_PARENT_ID` (`parent_id`),
     ADD CONSTRAINT `CATALOG_PRODUCT_SUPER_LINK_PRODUCT_ID_PARENT_ID` UNIQUE KEY (`product_id`,`parent_id`);
 
 -- ------------------

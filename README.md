@@ -17,6 +17,12 @@ by the tool will remove some specific tables and attributes of the Adobe Commerc
 
 Before migrating, change your indexer mode to manual, so the triggers are safely removed. You will be able to change back to scheduled after the migration has been done.
 
+Work on a copy of the database and keep a backup: the scripts alter the schema, which cannot be rolled back if a statement fails.
+
+Then run the read-only [preflight](./scripts/preflight.sql) checks. Every query should return no row, otherwise its comment explains what to fix first (remaining triggers, unknown foreign keys on staging columns, running or scheduled staging updates, gift card products, EE classes in attributes, widgets or CMS content).
+
+Only the version of products, categories, CMS pages/blocks and rules active at the time of the migration is kept: future scheduled updates are lost, and a running campaign becomes permanent.
+
 `mysql -u <user> <database> < <script.sql>`
 
 > Where :
