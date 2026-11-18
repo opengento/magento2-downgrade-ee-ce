@@ -1,8 +1,8 @@
--- Enable `entity_id` column for catalog category entity
-DELETE FROM catalog_category_entity WHERE row_id NOT IN (
-    SELECT tmp_category.row_id FROM (SELECT MAX(row_id) AS row_id FROM catalog_category_entity GROUP BY entity_id) tmp_category
-);
+-- Keep only the version active now (staging versions are contiguous, exactly one matches)
+DELETE FROM `catalog_category_entity`
+WHERE `created_in` > UNIX_TIMESTAMP() OR `updated_in` <= UNIX_TIMESTAMP();
 
+-- Enable `entity_id` column for catalog category entity
 ALTER TABLE `catalog_category_entity_datetime`
     ADD COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'Entity ID';
 ALTER TABLE `catalog_category_entity_decimal`
@@ -13,18 +13,6 @@ ALTER TABLE `catalog_category_entity_text`
     ADD COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'Entity ID';
 ALTER TABLE `catalog_category_entity_varchar`
     ADD COLUMN `entity_id` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'Entity ID';
-
--- Clean duplicates for catalog category entity
-
-DELETE e
-FROM `catalog_category_entity` e
-         LEFT OUTER JOIN (
-    SELECT MAX(`updated_in`) as `last_updated_in`, `entity_id`
-    FROM `catalog_category_entity`
-    GROUP BY `entity_id`
-) AS p
-                         ON e.`entity_id` = p.`entity_id` AND e.`updated_in` = p.`last_updated_in`
-WHERE p.`last_updated_in` IS NULL;
 
 -- Populate `entity_id` column for catalog category entity
 

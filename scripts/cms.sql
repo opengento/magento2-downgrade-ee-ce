@@ -6,27 +6,12 @@ ALTER TABLE `cms_block_store`
 ALTER TABLE `cms_page_store`
     ADD COLUMN `page_id` SMALLINT(6) NOT NULL COMMENT 'Entity ID';
 
--- Clean duplicates for cms block
-DELETE e
-FROM `cms_block` e
-         LEFT OUTER JOIN (
-    SELECT MAX(`updated_in`) as `last_updated_in`, `block_id`
-    FROM `cms_block`
-    GROUP BY `block_id`
-) AS p
-                         ON e.`block_id` = p.`block_id` AND e.`updated_in` = p.`last_updated_in`
-WHERE p.`last_updated_in` IS NULL;
+-- Keep only the version active now (staging versions are contiguous, exactly one matches)
+DELETE FROM `cms_block`
+WHERE `created_in` > UNIX_TIMESTAMP() OR `updated_in` <= UNIX_TIMESTAMP();
 
--- Clean duplicates for cms page
-DELETE e
-FROM `cms_page` e
-         LEFT OUTER JOIN (
-    SELECT MAX(`updated_in`) as `last_updated_in`, `page_id`
-    FROM `cms_page`
-    GROUP BY `page_id`
-) AS p
-                         ON e.`page_id` = p.`page_id` AND e.`updated_in` = p.`last_updated_in`
-WHERE p.`last_updated_in` IS NULL;
+DELETE FROM `cms_page`
+WHERE `created_in` > UNIX_TIMESTAMP() OR `updated_in` <= UNIX_TIMESTAMP();
 
 -- Populate `block_id` column for block store
 UPDATE `cms_block_store` v INNER JOIN `cms_block` e ON v.`row_id` = e.`row_id`

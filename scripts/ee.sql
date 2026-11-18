@@ -1,3 +1,33 @@
+-- Restore archived sales documents (Magento_SalesArchive) into the CE grids,
+-- otherwise they disappear from the admin grids once the archive tables are dropped.
+-- Only the columns shared by both tables are copied (third party modules may add grid columns).
+
+SET SESSION group_concat_max_len = 1000000;
+
+SET @cols = (SELECT GROUP_CONCAT(CONCAT('`', a.COLUMN_NAME, '`')) FROM information_schema.COLUMNS a
+    INNER JOIN information_schema.COLUMNS g ON g.TABLE_SCHEMA = a.TABLE_SCHEMA AND g.TABLE_NAME = 'sales_order_grid' AND g.COLUMN_NAME = a.COLUMN_NAME
+    WHERE a.TABLE_SCHEMA = DATABASE() AND a.TABLE_NAME = 'magento_sales_order_grid_archive');
+SET @sql = IF(@cols IS NULL, 'DO 0', CONCAT('INSERT IGNORE INTO `sales_order_grid` (', @cols, ') SELECT ', @cols, ' FROM `magento_sales_order_grid_archive`'));
+PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
+
+SET @cols = (SELECT GROUP_CONCAT(CONCAT('`', a.COLUMN_NAME, '`')) FROM information_schema.COLUMNS a
+    INNER JOIN information_schema.COLUMNS g ON g.TABLE_SCHEMA = a.TABLE_SCHEMA AND g.TABLE_NAME = 'sales_invoice_grid' AND g.COLUMN_NAME = a.COLUMN_NAME
+    WHERE a.TABLE_SCHEMA = DATABASE() AND a.TABLE_NAME = 'magento_sales_invoice_grid_archive');
+SET @sql = IF(@cols IS NULL, 'DO 0', CONCAT('INSERT IGNORE INTO `sales_invoice_grid` (', @cols, ') SELECT ', @cols, ' FROM `magento_sales_invoice_grid_archive`'));
+PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
+
+SET @cols = (SELECT GROUP_CONCAT(CONCAT('`', a.COLUMN_NAME, '`')) FROM information_schema.COLUMNS a
+    INNER JOIN information_schema.COLUMNS g ON g.TABLE_SCHEMA = a.TABLE_SCHEMA AND g.TABLE_NAME = 'sales_shipment_grid' AND g.COLUMN_NAME = a.COLUMN_NAME
+    WHERE a.TABLE_SCHEMA = DATABASE() AND a.TABLE_NAME = 'magento_sales_shipment_grid_archive');
+SET @sql = IF(@cols IS NULL, 'DO 0', CONCAT('INSERT IGNORE INTO `sales_shipment_grid` (', @cols, ') SELECT ', @cols, ' FROM `magento_sales_shipment_grid_archive`'));
+PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
+
+SET @cols = (SELECT GROUP_CONCAT(CONCAT('`', a.COLUMN_NAME, '`')) FROM information_schema.COLUMNS a
+    INNER JOIN information_schema.COLUMNS g ON g.TABLE_SCHEMA = a.TABLE_SCHEMA AND g.TABLE_NAME = 'sales_creditmemo_grid' AND g.COLUMN_NAME = a.COLUMN_NAME
+    WHERE a.TABLE_SCHEMA = DATABASE() AND a.TABLE_NAME = 'magento_sales_creditmemo_grid_archive');
+SET @sql = IF(@cols IS NULL, 'DO 0', CONCAT('INSERT IGNORE INTO `sales_creditmemo_grid` (', @cols, ') SELECT ', @cols, ' FROM `magento_sales_creditmemo_grid_archive`'));
+PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
+
 -- Drop EE tables
 
 -- ------------------------------------------------------ --
